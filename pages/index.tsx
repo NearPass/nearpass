@@ -1,3 +1,5 @@
+// Main events Page, all events on the platform will be visible here.
+
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
