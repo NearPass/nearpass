@@ -2,6 +2,7 @@
 
 import type { NextPage } from "next";
 import EventCard from "../components/Event/EventCard";
+import { H1, H2, H4 } from "../components/Headings";
 import { Event } from "../types";
 
 const EVENT_DATA: Event[] = [
@@ -32,12 +33,10 @@ const Home: NextPage = () => {
     return (
         <div className="flex space-y-8 flex-1 p-5 flex-col">
             <div className="flex flex-col space-y-2">
-                <h1 className="text-gray-700 font-bold text-3xl selection:bg-brand-200 selection:text-brand-700">
-                    Upcoming Events
-                </h1>
-                <h3 className="text-gray-400 selection:bg-brand-200 selection:text-brand-700">
+                <H1>Upcoming Events</H1>
+                <H4 className="text-gray-400 selection:bg-brand-200 selection:text-brand-700">
                     Awesome upcoming events!
-                </h3>
+                </H4>
             </div>
             <div className="grid gap-2 grid-cols-4">
                 {EVENT_DATA.map((event) => (

@@ -2,6 +2,7 @@
 
 import CheckCircle from "../../components/CheckCircle";
 import { Formik } from "formik";
+import Text from "../../components/Text";
 
 const Event = () => {
     return (
@@ -90,7 +91,7 @@ const Event = () => {
                                 <h3>Event Information</h3>
                             </div>
                             <div className="text-black">
-                                <p className="max-w-full">
+                                <Text className="text-gray-500">
                                     Join us for our next Investor pitching
                                     event. We help Startups test, grow and even
                                     get funding for their business ideas. With
@@ -105,7 +106,7 @@ const Event = () => {
                                     attend. To PITCH go to bit.ly/nyplooza Our
                                     Winners have raised over $16 million in the
                                     past 3 years!
-                                </p>
+                                </Text>
                             </div>
                         </div>
                         <div>
