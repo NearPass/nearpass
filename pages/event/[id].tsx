@@ -3,7 +3,7 @@
 import CheckCircle from "../../components/CheckCircle";
 import { Formik } from "formik";
 import Text from "../../components/Text";
-import { H1, H4, H3, H5 } from "../../components/Headings";
+import { H1, H4, H3, H5, H6 } from "../../components/Headings";
 
 type FormInputs = {
     email?: string;
@@ -34,6 +34,9 @@ const Event = () => {
                                     initialValues={{ email: "", name: "" }}
                                     validate={(values) => {
                                         let errors: FormInputs = {};
+                                        if (!values.name) {
+                                            errors.name = "Name is required";
+                                        }
                                         if (!values.email) {
                                             errors.email = "Email is required";
                                         }
@@ -68,10 +71,16 @@ const Event = () => {
                                                     className="bg-white border-2 outline-none border-purple-200 rounded-md px-2 py-1 text-black"
                                                     value={values.name}
                                                     onChange={handleChange}
+                                                    onBlur={handleBlur}
                                                     type="text"
                                                     name="name"
                                                     id="name"
                                                 />
+                                                <H6 className="text-red-500">{`${
+                                                    errors.name && touched.name
+                                                        ? errors.name
+                                                        : ""
+                                                }`}</H6>
                                             </div>
 
                                             <div className="flex flex-col space-y-2">
@@ -92,11 +101,20 @@ const Event = () => {
                                                     name="email"
                                                     id="email"
                                                 />
-                                                <H4 className="text-xs text-red-500">{`${
-                                                    errors.email
+                                                <H6 className="text-red-500">{`${
+                                                    errors.email &&
+                                                    touched.email
                                                         ? errors.email
                                                         : ""
-                                                }`}</H4>
+                                                }`}</H6>
+                                            </div>
+                                            <div className="flex items-end space-x-[2px]">
+                                                <span className="text-black">
+                                                    Price:
+                                                </span>
+                                                <H4 className="text-brand-600 text-xl leading-tight">
+                                                    Free
+                                                </H4>
                                             </div>
                                             <button className="bg-brand-600 max-w-fit text-lg border-2 focus:ring-2 focus:ring-brand-500 outline-none ring-offset-2 border-transparent shadow-md py-1 px-4 w-full h-full rounded-md active:ring-2 active:ring-brand-500">
                                                 Book
