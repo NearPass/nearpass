@@ -1,9 +1,9 @@
 // Dedicated page for every event containing information like description, venue, date, time and sign up form.
 
-import CheckCircle from "../../components/CheckCircle";
 import { Formik } from "formik";
 import Text from "../../components/Text";
 import { H1, H4, H3, H5, H6 } from "../../components/Headings";
+import Calendar from "../../components/Icons/Calendar";
 
 type FormInputs = {
     email?: string;
@@ -15,8 +15,9 @@ const Event = () => {
         <div className="flex flex-col items-start space-y-8 justify-center px-32 pt-12">
             <div className="flex flex-col space-y-2">
                 <H1>Learn from Founders of 9 Figure Online Stores</H1>
-                <div>
-                    <H4 className="text-purple-400 text-base">
+                <div className="flex space-x-2 items-center">
+                    <Calendar />
+                    <H4 className="text-purple-500 text-base">
                         Thu, Oct 27 · 6:30 PM IST
                     </H4>
                 </div>
@@ -112,7 +113,7 @@ const Event = () => {
                                                 <span className="text-black">
                                                     Price:
                                                 </span>
-                                                <H4 className="text-brand-600 text-xl leading-tight">
+                                                <H4 className="text-brand-600 font-semibold text-xl leading-tight">
                                                     Free
                                                 </H4>
                                             </div>
@@ -161,7 +162,7 @@ const Event = () => {
                     />
                     <div className="flex flex-col space-y-4">
                         <div className="grid grid-cols-2 gap-2">
-                            <div className="flex items-center justify-between max-w-fit space-x-4 border-2 border-purple-100 p-4 rounded-md">
+                            <div className="flex hover:bg-brand-100 hover:border-brand-600 items-center justify-between max-w-fit space-x-4 border-2 border-brand-100 p-4 rounded-md">
                                 <img
                                     className="rounded-full h-14 w-14"
                                     src="https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=85,width=40,height=40/avatars/3b/df87ba2b-f455-4f41-ba3b-814721f505f1"

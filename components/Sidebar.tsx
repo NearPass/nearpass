@@ -1,6 +1,6 @@
 import ZapIcon from "./ZapIcon";
 import SidebarMenuItem from "./SidebarMenuItem";
-import CheckCircle from "./CheckCircle";
+import CheckCircle from "./Icons/CheckCircle";
 
 const Sidebar = () => {
     return (
