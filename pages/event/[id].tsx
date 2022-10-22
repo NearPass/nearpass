@@ -3,33 +3,44 @@
 import CheckCircle from "../../components/CheckCircle";
 import { Formik } from "formik";
 import Text from "../../components/Text";
+import { H1, H4, H3, H5 } from "../../components/Headings";
+
+type FormInputs = {
+    email?: string;
+    name?: string;
+};
 
 const Event = () => {
     return (
         <div className="flex flex-col items-start space-y-8 justify-center px-32 pt-12">
             <div className="flex flex-col space-y-2">
-                <h1 className="text-black text-3xl font-semibold">
-                    Learn from Founders of 9 Figure Online Stores
-                </h1>
-                <div className="text-purple-700">Thu, Oct 27 · 6:30 PM IST</div>
+                <H1>Learn from Founders of 9 Figure Online Stores</H1>
+                <div>
+                    <H4 className="text-purple-400 text-base">
+                        Thu, Oct 27 · 6:30 PM IST
+                    </H4>
+                </div>
             </div>
 
             <div className="grid grid-cols-2 gap-10 h-full w-full">
                 <div className="flex flex-col">
                     <div className="flex space-y-4 flex-col">
                         <div className="flex flex-col space-y-2">
-                            <h3 className="text-2xl font-medium text-black">
+                            <H3 className="font-semibold text-gray-700">
                                 Registration
-                            </h3>
+                            </H3>
                             <div className="border-2 bg-brand-50 border-brand-100 p-4 rounded-lg">
                                 <Formik
                                     initialValues={{ email: "", name: "" }}
                                     validate={(values) => {
-                                        const errors = {};
-
+                                        let errors: FormInputs = {};
+                                        if (!values.email) {
+                                            errors.email = "Email is required";
+                                        }
                                         return errors;
                                     }}
                                     onSubmit={(values, { setSubmitting }) => {
+                                        console.log(values);
                                         setSubmitting(false);
                                     }}
                                 >
@@ -40,6 +51,7 @@ const Event = () => {
                                         handleChange,
                                         handleSubmit,
                                         isSubmitting,
+                                        handleBlur,
                                     }) => (
                                         <form
                                             onSubmit={handleSubmit}
@@ -67,16 +79,24 @@ const Event = () => {
                                                     className="text-black"
                                                     htmlFor="name"
                                                 >
-                                                    Email
+                                                    <H5 className="!text-gray-700">
+                                                        Email
+                                                    </H5>
                                                 </label>
                                                 <input
                                                     className="bg-white border-2 outline-none border-purple-200 rounded-md px-2 py-1 text-black"
                                                     value={values.email}
                                                     onChange={handleChange}
+                                                    onBlur={handleBlur}
                                                     type="email"
                                                     name="email"
                                                     id="email"
                                                 />
+                                                <H4 className="text-xs text-red-500">{`${
+                                                    errors.email
+                                                        ? errors.email
+                                                        : ""
+                                                }`}</H4>
                                             </div>
                                             <button className="bg-brand-600 max-w-fit text-lg border-2 focus:ring-2 focus:ring-brand-500 outline-none ring-offset-2 border-transparent shadow-md py-1 px-4 w-full h-full rounded-md active:ring-2 active:ring-brand-500">
                                                 Book
@@ -88,7 +108,9 @@ const Event = () => {
                         </div>
                         <div className="flex flex-col space-y-2">
                             <div className="text-2xl font-medium  text-black">
-                                <h3>Event Information</h3>
+                                <H3 className="font-semibold text-gray-700">
+                                    Event Information
+                                </H3>
                             </div>
                             <div className="text-black">
                                 <Text className="text-gray-500">

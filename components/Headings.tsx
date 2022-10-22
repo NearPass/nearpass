@@ -61,3 +61,35 @@ export const H4 = ({
         </h4>
     );
 };
+
+export const H5 = ({
+    children,
+    className,
+}: {
+    children: string;
+    className?: string;
+}) => {
+    return (
+        <h5
+            className={`text-gray-400 text-md selection:bg-brand-200 selection:text-brand-700 ${className}`}
+        >
+            {children}
+        </h5>
+    );
+};
+
+export const H6 = ({
+    children,
+    className,
+}: {
+    children: string;
+    className?: string;
+}) => {
+    return (
+        <h6
+            className={`text-gray-400 text-xs selection:bg-brand-200 selection:text-brand-700 ${className}`}
+        >
+            {children}
+        </h6>
+    );
+};
