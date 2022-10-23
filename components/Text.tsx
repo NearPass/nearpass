@@ -1,8 +1,10 @@
+import { ReactNode } from "react";
+
 const Text = ({
     children,
     className,
 }: {
-    children: string;
+    children: ReactNode;
     className?: string;
 }) => {
     return (
