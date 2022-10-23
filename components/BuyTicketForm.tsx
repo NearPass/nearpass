@@ -82,6 +82,7 @@ const BuyTicketForm = () => {
                                 }
                                 errorMessage={errors.email}
                                 className="bg-purple-500"
+                                leftIcon={<Mail />}
                             />
                         </FormInputWrapper>
                         <FormInputWrapper>
