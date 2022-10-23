@@ -1,8 +1,7 @@
 import { Formik } from "formik";
-import { MdEmail, MdFormatLineSpacing } from "react-icons/md";
 import FormInput from "./FormInput";
 import FormInputWrapper from "./FormInputWrapper";
-import { H4, H5, H6 } from "./Headings";
+import { H3, H4, H5, H6 } from "./Headings";
 import Mail from "./Icons/Mail";
 import Phone from "./Icons/Phone";
 
@@ -45,6 +44,14 @@ const BuyTicketForm = () => {
                         onSubmit={handleSubmit}
                         className="flex flex-col space-y-4"
                     >
+                        <div className="flex flex-col">
+                            <H6>Connected as:</H6>
+                            <i>
+                                <H3 className="font-medium text-brand-500">
+                                    harpal.near
+                                </H3>
+                            </i>
+                        </div>
                         <FormInputWrapper>
                             <FormInput
                                 placeholder="Enter your name"
@@ -63,34 +70,36 @@ const BuyTicketForm = () => {
 
                         <FormInputWrapper>
                             <FormInput
-                                type="email"
+                                placeholder="Enter your email"
                                 id="email"
                                 label="Email"
-                                placeholder="Enter your email"
-                                name="email"
+                                type="email"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.email}
                                 error={
                                     errors.email !== undefined && touched.email
                                 }
                                 errorMessage={errors.email}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                leftIcon={<Mail />}
+                                className="bg-purple-500"
                             />
                         </FormInputWrapper>
                         <FormInputWrapper>
                             <FormInput
-                                type="tel"
-                                pattern="[0-9]{10}"
+                                placeholder="Enter your phone number"
                                 id="phone"
                                 label="Phone"
-                                placeholder="Enter your phone number"
-                                name="phone"
+                                type="tel"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.phone}
                                 error={
                                     errors.phone !== undefined && touched.phone
                                 }
                                 errorMessage={errors.phone}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                className="bg-purple-500"
+                                pattern="[0-9]{10}"
+                                name="phone"
                                 leftIcon={<Phone />}
                             />
                         </FormInputWrapper>
@@ -102,7 +111,7 @@ const BuyTicketForm = () => {
                         </div>
                         <button
                             type="submit"
-                            className="bg-brand-600 max-w-fit text-lg border-2 focus:ring-2 focus:ring-brand-500 outline-none ring-offset-2 border-transparent shadow-md py-1 px-4 w-full h-full rounded-md active:ring-2 active:ring-brand-500"
+                            className="bg-brand-600 max-w-fit text-md border-2 focus:ring-2 focus:ring-brand-500 outline-none ring-offset-2 border-transparent shadow-md py-1 px-4 w-full h-full rounded-md active:ring-2 active:ring-brand-500"
                         >
                             Book
                         </button>
