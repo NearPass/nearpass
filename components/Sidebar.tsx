@@ -1,4 +1,4 @@
-import ZapIcon from "./ZapIcon";
+import ZapIcon from "./Icons/ZapIcon";
 import SidebarMenuItem from "./SidebarMenuItem";
 import CheckCircle from "./Icons/CheckCircle";
 
