@@ -71,7 +71,7 @@ export const H5 = ({
 }) => {
     return (
         <h5
-            className={`text-gray-400 text-md selection:bg-brand-200 selection:text-brand-700 ${className}`}
+            className={`text-gray-400 text-base selection:bg-brand-200 selection:text-brand-700 ${className}`}
         >
             {children}
         </h5>
