@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.3",
     "clsx": "^1.2.1",
     "formik": "^2.2.9",
     "next": "12.3.1",
