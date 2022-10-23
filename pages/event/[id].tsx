@@ -4,11 +4,7 @@ import { Formik } from "formik";
 import Text from "../../components/Text";
 import { H1, H4, H3, H5, H6 } from "../../components/Headings";
 import Calendar from "../../components/Icons/Calendar";
-
-type FormInputs = {
-    email?: string;
-    name?: string;
-};
+import BuyTicketForm from "../../components/BuyTicketForm";
 
 const Event = () => {
     return (
@@ -30,100 +26,7 @@ const Event = () => {
                             <H3 className="font-semibold text-gray-700">
                                 Registration
                             </H3>
-                            <div className="border-2 bg-brand-50 border-brand-100 p-4 rounded-lg">
-                                <Formik
-                                    initialValues={{ email: "", name: "" }}
-                                    validate={(values) => {
-                                        let errors: FormInputs = {};
-                                        if (!values.name) {
-                                            errors.name = "Name is required";
-                                        }
-                                        if (!values.email) {
-                                            errors.email = "Email is required";
-                                        }
-                                        return errors;
-                                    }}
-                                    onSubmit={(values, { setSubmitting }) => {
-                                        console.log(values);
-                                        setSubmitting(false);
-                                    }}
-                                >
-                                    {({
-                                        values,
-                                        errors,
-                                        touched,
-                                        handleChange,
-                                        handleSubmit,
-                                        isSubmitting,
-                                        handleBlur,
-                                    }) => (
-                                        <form
-                                            onSubmit={handleSubmit}
-                                            className="flex flex-col space-y-4"
-                                        >
-                                            <div className="flex flex-col space-y-2">
-                                                <label
-                                                    className="text-black"
-                                                    htmlFor="name"
-                                                >
-                                                    Name
-                                                </label>
-                                                <input
-                                                    className="bg-white border-2 outline-none border-purple-200 rounded-md px-2 py-1 text-black"
-                                                    value={values.name}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    type="text"
-                                                    name="name"
-                                                    id="name"
-                                                />
-                                                <H6 className="text-red-500">{`${
-                                                    errors.name && touched.name
-                                                        ? errors.name
-                                                        : ""
-                                                }`}</H6>
-                                            </div>
-
-                                            <div className="flex flex-col space-y-2">
-                                                <label
-                                                    className="text-black"
-                                                    htmlFor="name"
-                                                >
-                                                    <H5 className="!text-gray-700">
-                                                        Email
-                                                    </H5>
-                                                </label>
-                                                <input
-                                                    className="bg-white border-2 outline-none border-purple-200 rounded-md px-2 py-1 text-black"
-                                                    value={values.email}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    type="email"
-                                                    name="email"
-                                                    id="email"
-                                                />
-                                                <H6 className="text-red-500">{`${
-                                                    errors.email &&
-                                                    touched.email
-                                                        ? errors.email
-                                                        : ""
-                                                }`}</H6>
-                                            </div>
-                                            <div className="flex items-end space-x-[2px]">
-                                                <span className="text-black">
-                                                    Price:
-                                                </span>
-                                                <H4 className="text-brand-600 font-semibold text-xl leading-tight">
-                                                    Free
-                                                </H4>
-                                            </div>
-                                            <button className="bg-brand-600 max-w-fit text-lg border-2 focus:ring-2 focus:ring-brand-500 outline-none ring-offset-2 border-transparent shadow-md py-1 px-4 w-full h-full rounded-md active:ring-2 active:ring-brand-500">
-                                                Book
-                                            </button>
-                                        </form>
-                                    )}
-                                </Formik>
-                            </div>
+                            <BuyTicketForm />
                         </div>
                         <div className="flex flex-col space-y-2">
                             <div className="text-2xl font-medium  text-black">
@@ -187,7 +90,6 @@ const Event = () => {
                                 Join Discord
                             </button>
                         </div>
-                        {/* Host Details, Join Details, Share, Telegram / Discord */}
                     </div>
                 </div>
             </div>
