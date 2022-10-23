@@ -168,38 +168,40 @@ const Event = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col space-y-4">
-                    <img
-                        className="rounded-lg"
-                        src="https://secure-content.meetupstatic.com/images/classic-events/507570333/530x298.webp"
-                    />
-                    <div className="flex flex-col space-y-4">
-                        <div className="grid grid-cols-2 gap-2">
-                            <div className="flex hover:bg-brand-100 hover:border-brand-600 items-center justify-between max-w-fit space-x-4 border-2 border-brand-100 p-4 rounded-md">
-                                <img
-                                    className="rounded-full h-14 w-14"
-                                    src="https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=85,width=40,height=40/avatars/3b/df87ba2b-f455-4f41-ba3b-814721f505f1"
-                                />
-                                <div className="flex flex-1 justify-end space-x-4 w-full">
-                                    <div className="flex flex-col justify-center">
-                                        <h5 className="text-purple-500 text-md">
-                                            Avi from Pesto
-                                        </h5>
-                                        <h6 className="text-purple-700 font-semibold text-sm">
-                                            Host
-                                        </h6>
+                <div>
+                    <div className="flex flex-col space-y-4 sticky top-10">
+                        <img
+                            className="rounded-lg"
+                            src="https://secure-content.meetupstatic.com/images/classic-events/507570333/530x298.webp"
+                        />
+                        <div className="flex flex-col space-y-4">
+                            <div className="grid grid-cols-2 gap-2">
+                                <div className="flex hover:bg-brand-100 hover:border-brand-600 items-center justify-between max-w-fit space-x-4 border-2 border-brand-100 p-4 rounded-md">
+                                    <img
+                                        className="rounded-full h-14 w-14"
+                                        src="https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=85,width=40,height=40/avatars/3b/df87ba2b-f455-4f41-ba3b-814721f505f1"
+                                    />
+                                    <div className="flex flex-1 justify-end space-x-4 w-full">
+                                        <div className="flex flex-col justify-center">
+                                            <h5 className="text-purple-500 text-md">
+                                                Avi from Pesto
+                                            </h5>
+                                            <h6 className="text-purple-700 font-semibold text-sm">
+                                                Host
+                                            </h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex space-x-2">
-                            <button className="bg-brand-100 text-brand-700 max-w-fit text-lg border-2 focus:ring-2 focus:ring-brand-100 outline-none ring-offset-2 border-transparent shadow-inner px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-brand-100">
-                                Share this event
-                            </button>
-                            <button className="bg-[#7289da] flex space-x-2 max-w-fit text-lg border-2 focus:ring-2 focus:ring-[#7289da] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-[#7289da]">
-                                <MessageChatCircle className="stroke-white" />{" "}
-                                <H4 className="text-white">Join Discord</H4>
-                            </button>
+                            <div className="flex space-x-2">
+                                <button className="bg-brand-100 text-brand-700 max-w-fit text-lg border-2 focus:ring-2 focus:ring-brand-100 outline-none ring-offset-2 border-transparent shadow-inner px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-brand-100">
+                                    Share this event
+                                </button>
+                                <button className="bg-[#7289da] flex space-x-2 max-w-fit text-lg border-2 focus:ring-2 focus:ring-[#7289da] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-[#7289da]">
+                                    <MessageChatCircle className="stroke-white" />{" "}
+                                    <H4 className="text-white">Join Discord</H4>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
