@@ -9,6 +9,7 @@ import MessageChatCircle from "../../components/Icons/MessageChatCircle";
 import { Disclosure } from "@headlessui/react";
 import ChevronDown from "../../components/Icons/ChevronDown";
 import clsx from "clsx";
+import MarkerPin from "../../components/Icons/MarkerPin";
 
 const Event = () => {
     return (
@@ -193,12 +194,65 @@ const Event = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <div className="p-4 flex space-x-2 items-start border-brand-100 border-2 rounded-md">
+                                    <div className="">
+                                        <MarkerPin />
+                                    </div>
+                                    <div className="flex justify-center flex-col space-y-2">
+                                        <H4 className="text-gray-700 leading-tight">
+                                            Location
+                                        </H4>
+                                        <Text>
+                                            1938 Clove Rd · Staten Island, NY
+                                        </Text>
+                                        <Text className="text-sm text-brand-600">
+                                            <a href="https://www.google.com">
+                                                Show on Map
+                                            </a>
+                                        </Text>
+                                    </div>
+                                </div>
+                                <div className="p-4 w-full flex flex-col border-2 border-brand-100 space-y-2 rounded-md">
+                                    <div className="flex items-center space-x-2">
+                                        <H4 className="text-gray-700">
+                                            Attendees
+                                        </H4>
+                                        <span className="bg-brand-200 text-brand-600 px-2 py-[2px] rounded-md text-xs">
+                                            64
+                                        </span>
+                                    </div>
+                                    <ul className="max-w-fit items-center flex space-x-[-15px]">
+                                        {Array.from(
+                                            Array(5).keys(),
+                                            (x) => `z-[${x}]`
+                                        ).map((element) => (
+                                            <li
+                                                className={clsx(
+                                                    `overflow-hidden border-2 box-border hover:border-brand-500 hover:translate-y-[-.5rem] transition-transform duration-300 border-gray-200 rounded-full h-12 w-12`,
+                                                    `${element}`
+                                                )}
+                                            >
+                                                <img
+                                                    className="bg-cover"
+                                                    src="https://secure.meetupstatic.com/photos/member/5/2/9/0/thumb_312621136.jpeg"
+                                                />
+                                            </li>
+                                        ))}
+                                        <li className="!ml-[10px]">
+                                            <H5 className="text-brand-600 font-medium">
+                                                +59 More
+                                            </H5>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <div className="flex space-x-2">
                                 <button className="bg-brand-100 text-brand-700 max-w-fit text-lg border-2 focus:ring-2 focus:ring-brand-100 outline-none ring-offset-2 border-transparent shadow-inner px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-brand-100">
                                     Share this event
                                 </button>
                                 <button className="bg-[#7289da] flex space-x-2 max-w-fit text-lg border-2 focus:ring-2 focus:ring-[#7289da] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-[#7289da]">
-                                    <MessageChatCircle className="stroke-white" />{" "}
+                                    <MessageChatCircle className="!stroke-white" />
                                     <H4 className="text-white">Join Discord</H4>
                                 </button>
                             </div>
