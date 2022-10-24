@@ -184,12 +184,12 @@ const Event = () => {
                                     />
                                     <div className="flex flex-1 justify-end space-x-4 w-full">
                                         <div className="flex flex-col justify-center">
-                                            <h5 className="text-purple-500 text-md">
+                                            <H5 className="text-purple-500 text-md">
                                                 Avi from Pesto
-                                            </h5>
-                                            <h6 className="text-purple-700 font-semibold text-sm">
+                                            </H5>
+                                            <H6 className="text-purple-700 font-semibold text-sm">
                                                 Host
-                                            </h6>
+                                            </H6>
                                         </div>
                                     </div>
                                 </div>
@@ -200,10 +200,10 @@ const Event = () => {
                                         <MarkerPin />
                                     </div>
                                     <div className="flex justify-center flex-col space-y-2">
-                                        <H4 className="text-gray-700 leading-tight">
+                                        <H5 className="text-gray-700 leading-tight">
                                             Location
-                                        </H4>
-                                        <Text>
+                                        </H5>
+                                        <Text className="text-gray-700 font-medium">
                                             1938 Clove Rd · Staten Island, NY
                                         </Text>
                                         <Text className="text-sm text-brand-600">
