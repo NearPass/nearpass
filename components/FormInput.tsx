@@ -44,7 +44,7 @@ const FormInput = ({
                             "rounded-lg": !prefix,
                         },
                         {
-                            "focus-within:ring-error-200 focus-within:!border-error-300 border-error-300":
+                            "focus-within:ring-error-200 focus-within:!border-error-300 !border-error-300":
                                 error,
                         },
                         "flex w-full bg-white px-[14px] py-[10px] focus-within:ring-2 focus-within:ring-offset-0 focus-within:ring-brand-200 font-inter items-center border-2 border-gray-300  focus-within:border-brand-300"
