@@ -33,6 +33,10 @@ select:-webkit-autofill:focus {
     transition: background-color 5000s ease-in-out 0s;
 }
 
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert();
+}
+
 .z-\[1\] {
     z-index: 1;
 }
