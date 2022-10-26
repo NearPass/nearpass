@@ -10,6 +10,11 @@ import { Disclosure } from "@headlessui/react";
 import ChevronDown from "../../components/Icons/ChevronDown";
 import clsx from "clsx";
 import MarkerPin from "../../components/Icons/MarkerPin";
+import AttendeesList from "../../components/AttendeesList";
+import AttendeesSection from "../../components/AttendeesSection";
+import LocationSection from "../../components/LocationSection";
+import Host from "../../components/Host";
+import FAQSection from "../../components/FAQSection";
 
 const Event = () => {
     return (
@@ -59,113 +64,7 @@ const Event = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="text-2xl font-medium flex mb-6 flex-col space-y-4 text-black">
-                                <H3 className="font-semibold text-gray-700">
-                                    FAQ
-                                </H3>
-                                <div className="flex flex-col items-start">
-                                    <Disclosure>
-                                        {({ open }) => (
-                                            <div
-                                                className={clsx("w-full", {
-                                                    "bg-gray-100": open,
-                                                })}
-                                            >
-                                                <Disclosure.Button
-                                                    className={clsx(
-                                                        "text-left hover:bg-gray-50 p-4 flex justify-between w-full",
-                                                        {
-                                                            "border-b-2 border-gray-200":
-                                                                !open,
-                                                        }
-                                                    )}
-                                                >
-                                                    <H4 className="text-gray-700">
-                                                        When is the event?
-                                                    </H4>
-                                                    <div
-                                                        className={
-                                                            open
-                                                                ? `rotate-180`
-                                                                : ""
-                                                        }
-                                                    >
-                                                        <ChevronDown
-                                                            className={clsx(
-                                                                "stroke-gray-400"
-                                                            )}
-                                                        />
-                                                    </div>
-                                                </Disclosure.Button>
-                                                <Disclosure.Panel
-                                                    className={clsx(
-                                                        "mt-2 pb-4 pl-4 w-full",
-                                                        {
-                                                            "border-b-2 border-gray-200":
-                                                                open,
-                                                        }
-                                                    )}
-                                                >
-                                                    <H5 className="text-gray-700">
-                                                        The event is on 1st
-                                                        January 2023.
-                                                    </H5>
-                                                </Disclosure.Panel>
-                                            </div>
-                                        )}
-                                    </Disclosure>
-                                    <Disclosure>
-                                        {({ open }) => (
-                                            <div
-                                                className={clsx("w-full", {
-                                                    "bg-gray-100": open,
-                                                })}
-                                            >
-                                                <Disclosure.Button
-                                                    className={clsx(
-                                                        "text-left hover:bg-gray-50 p-4 flex justify-between w-full",
-                                                        {
-                                                            "border-b-2 border-gray-200":
-                                                                !open,
-                                                        }
-                                                    )}
-                                                >
-                                                    <H4 className="text-gray-700">
-                                                        When is the event?
-                                                    </H4>
-                                                    <div
-                                                        className={
-                                                            open
-                                                                ? `rotate-180`
-                                                                : ""
-                                                        }
-                                                    >
-                                                        <ChevronDown
-                                                            className={clsx(
-                                                                "stroke-gray-400"
-                                                            )}
-                                                        />
-                                                    </div>
-                                                </Disclosure.Button>
-                                                <Disclosure.Panel
-                                                    className={clsx(
-                                                        "mt-2 pb-4 pl-4 w-full",
-                                                        {
-                                                            "border-b-2 border-gray-200":
-                                                                open,
-                                                        }
-                                                    )}
-                                                >
-                                                    <H5 className="text-gray-700">
-                                                        The event is on 1st
-                                                        January 2023.
-                                                    </H5>
-                                                </Disclosure.Panel>
-                                            </div>
-                                        )}
-                                    </Disclosure>
-                                </div>
-                            </div>
+                            <FAQSection />
                         </div>
                     </div>
                 </div>
@@ -182,70 +81,14 @@ const Event = () => {
                                         className="rounded-full h-14 w-14"
                                         src="https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=85,width=40,height=40/avatars/3b/df87ba2b-f455-4f41-ba3b-814721f505f1"
                                     />
-                                    <div className="flex flex-1 justify-end space-x-4 w-full">
-                                        <div className="flex flex-col justify-center">
-                                            <H5 className="text-purple-500 text-md">
-                                                Avi from Pesto
-                                            </H5>
-                                            <H6 className="text-purple-700 font-semibold text-sm">
-                                                Host
-                                            </H6>
-                                        </div>
-                                    </div>
+                                    <ul className="flex flex-1 justify-end space-x-4 w-full">
+                                        <Host />
+                                    </ul>
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-2">
-                                <div className="p-4 flex space-x-2 items-start border-brand-100 border-2 rounded-md">
-                                    <div className="">
-                                        <MarkerPin />
-                                    </div>
-                                    <div className="flex justify-center flex-col space-y-2">
-                                        <H5 className="text-gray-700 leading-tight">
-                                            Location
-                                        </H5>
-                                        <Text className="text-gray-700 font-medium">
-                                            1938 Clove Rd · Staten Island, NY
-                                        </Text>
-                                        <Text className="text-sm text-brand-600">
-                                            <a href="https://www.google.com">
-                                                Show on Map
-                                            </a>
-                                        </Text>
-                                    </div>
-                                </div>
-                                <div className="p-4 w-full flex flex-col border-2 border-brand-100 space-y-2 rounded-md">
-                                    <div className="flex items-center space-x-2">
-                                        <H4 className="text-gray-700">
-                                            Attendees
-                                        </H4>
-                                        <span className="bg-brand-200 text-brand-600 px-2 py-[2px] rounded-md text-xs">
-                                            64
-                                        </span>
-                                    </div>
-                                    <ul className="max-w-fit items-center flex space-x-[-15px]">
-                                        {Array.from(
-                                            Array(5).keys(),
-                                            (x) => `z-[${x}]`
-                                        ).map((element) => (
-                                            <li
-                                                className={clsx(
-                                                    `overflow-hidden border-2 box-border hover:border-brand-500 hover:translate-y-[-.5rem] transition-transform duration-300 border-gray-200 rounded-full h-12 w-12`,
-                                                    `${element}`
-                                                )}
-                                            >
-                                                <img
-                                                    className="bg-cover"
-                                                    src="https://secure.meetupstatic.com/photos/member/5/2/9/0/thumb_312621136.jpeg"
-                                                />
-                                            </li>
-                                        ))}
-                                        <li className="!ml-[10px]">
-                                            <H5 className="text-brand-600 font-medium">
-                                                +59 More
-                                            </H5>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <LocationSection />
+                                <AttendeesSection />
                             </div>
                             <div className="flex space-x-2">
                                 <button className="bg-brand-100 text-brand-700 max-w-fit text-lg border-2 focus:ring-2 focus:ring-brand-100 outline-none ring-offset-2 border-transparent shadow-inner px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-brand-100">
