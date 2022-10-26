@@ -1,29 +1,55 @@
 import { utils } from "near-api-js";
+import useWallet from "../helpers/useWallet";
 import { H5, H6 } from "./Headings";
+import { WalletConnection } from "near-api-js";
+import ExternalLinkAlt from "./Icons/ExternalLinkAlt";
 
 interface AccountDetailsProps {
     accountId: string | undefined;
     balance: string | undefined;
-    signIn: () => void;
     signOut: () => void;
 }
 
 const AccountDetails = ({
     accountId,
     balance,
-    signIn,
     signOut,
 }: AccountDetailsProps) => {
+    let [_, walletConnection] = useWallet();
+
+    async function signIn() {
+        // @ts-ignore
+        if (walletConnection !== null) {
+            if (walletConnection) {
+                walletConnection.requestSignIn({
+                    contractId: "testing5.testnet",
+                    successUrl: "http://localhost:3000",
+                    failureUrl: "localhost:3000",
+                });
+            } else {
+                console.log(`Not yet init` + walletConnection);
+            }
+        }
+    }
+
     return (
         <>
             {accountId && balance ? (
-                <div>
+                <div className="flex flex-col">
                     <H6>{accountId}</H6>
-                    <H5 className="text-brand-600">
-                        {`${utils.format
-                            .formatNearAmount(balance)
-                            .substr(0, 6)} NEAR`}
-                    </H5>
+                    <div className="flex space-x-2">
+                        <H5 className="text-brand-600 ">
+                            {`${utils.format
+                                .formatNearAmount(balance)
+                                .substr(0, 6)} NEAR`}
+                        </H5>
+                        <a
+                            href={`https://explorer.testnet.near.org/accounts/${accountId}`}
+                            target="_blank"
+                        >
+                            <ExternalLinkAlt className="h-3 w-3" />
+                        </a>
+                    </div>
                 </div>
             ) : (
                 <button
