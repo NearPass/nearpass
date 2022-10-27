@@ -1,4 +1,10 @@
-import { Formik, FormikConfig, FormikHandlers, FormikProps } from "formik";
+import {
+    ErrorMessage,
+    Formik,
+    FormikConfig,
+    FormikHandlers,
+    FormikProps,
+} from "formik";
 import useWallet from "../helpers/useWallet";
 import FormInput from "./FormInput";
 import FormInputWrapper from "./FormInputWrapper";
@@ -236,6 +242,24 @@ const CreateEventForm = ({
                         ]}
                     />
                 </FormInputWrapper>
+
+                <FormInputWrapper>
+                    <FormInput
+                        label="Venue"
+                        name="venue"
+                        id="venue"
+                        value={formik.values.venue}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={
+                            formik.errors.venue !== undefined &&
+                            formik.touched.venue
+                        }
+                        placeholder="Venue"
+                        errorMessage={formik.errors.venue}
+                    />
+                </FormInputWrapper>
+
                 <FormInputWrapper>
                     <FormInput
                         name="price"
