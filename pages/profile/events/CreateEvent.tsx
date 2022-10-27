@@ -1,17 +1,52 @@
 // Dedicated page for every event containing information like description, venue, date, time and sign up form.
 
+import { useFormik } from "formik";
 import AttendeesSection from "../../../components/AttendeesSection";
 import BuyTicketForm from "../../../components/BuyTicketForm";
 import CreateEventForm from "../../../components/CreateEventForm";
 import FAQSection from "../../../components/FAQSection";
-import { H1, H3, H4 } from "../../../components/Headings";
+import { H1, H3, H4, H5, H6 } from "../../../components/Headings";
 import Host from "../../../components/Host";
 import Calendar from "../../../components/Icons/Calendar";
 import MessageChatCircle from "../../../components/Icons/MessageChatCircle";
 import LocationSection from "../../../components/LocationSection";
 import Text from "../../../components/Text";
 
+const FORM_INITIAL_VALUES = {
+    title: "",
+    description: "",
+    thumbnail: undefined,
+    ticketcap: "nocap",
+    tickets: 0,
+    price: 0,
+    eventtype: "",
+    venue: "",
+    datetime: "1998-09-15T23:00",
+    hostname: "",
+    hostwallet: "",
+    hostemail: "",
+    passgraphic: "",
+    extraquestions: [],
+    telegramgroup: "",
+    discordinvitelink: "",
+    question1: "",
+    faqquestion1: "",
+    answer1: "",
+    question2: "",
+    faqquestion2: "",
+    answer2: "",
+};
+
 const CreateEvent = () => {
+    const formik = useFormik({
+        initialValues: FORM_INITIAL_VALUES,
+        onSubmit: (values, { setSubmitting }) => {
+            console.log(values);
+            setSubmitting(false);
+        },
+        validate: (values) => {},
+    });
+
     return (
         <div className="flex flex-col items-start space-y-8 justify-center pl-10 pr-28 pt-12">
             <div className="flex flex-col space-y-2">
@@ -31,7 +66,7 @@ const CreateEvent = () => {
                             <H3 className="font-semibold text-gray-700">
                                 Event Form
                             </H3>
-                            <CreateEventForm />
+                            <CreateEventForm formik={formik} />
                         </div>
                         {/* <div className="flex flex-col space-y-2">
                             <div className="text-2xl font-medium  text-black">
@@ -63,7 +98,10 @@ const CreateEvent = () => {
                         </div> */}
                     </div>
                 </div>
-                <div>
+                <div className="flex flex-col">
+                    <H3 className="font-semibold text-gray-700">Preview</H3>
+                    <H3>{formik.values.title}</H3>
+                    <H5>{formik.values.description}</H5>
                     {/* <div className="flex flex-col space-y-4 sticky top-10">
                         <img
                             className="rounded-lg"
