@@ -265,22 +265,24 @@ const CreateEventForm = ({
                     </div>
                 </FormInputWrapper>
 
-                <FormInputWrapper>
-                    <FormInput
-                        label="Venue"
-                        name="venue"
-                        id="venue"
-                        value={formik.values.venue}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                            formik.errors.venue !== undefined &&
-                            formik.touched.venue
-                        }
-                        placeholder="Venue"
-                        errorMessage={formik.errors.venue}
-                    />
-                </FormInputWrapper>
+                {formik.values.eventtype === "irl" && (
+                    <FormInputWrapper>
+                        <FormInput
+                            label="Venue"
+                            name="venue"
+                            id="venue"
+                            value={formik.values.venue}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                                formik.errors.venue !== undefined &&
+                                formik.touched.venue
+                            }
+                            placeholder="Venue"
+                            errorMessage={formik.errors.venue}
+                        />
+                    </FormInputWrapper>
+                )}
 
                 <FormInputWrapper>
                     <FormInput
