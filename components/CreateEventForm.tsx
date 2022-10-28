@@ -1,5 +1,6 @@
 import {
     ErrorMessage,
+    Field,
     Formik,
     FormikConfig,
     FormikHandlers,
@@ -8,7 +9,7 @@ import {
 import useWallet from "../helpers/useWallet";
 import FormInput from "./FormInput";
 import FormInputWrapper from "./FormInputWrapper";
-import { H5, H6 } from "./Headings";
+import { H4, H5, H6 } from "./Headings";
 import clsx from "clsx";
 import Radio from "./Radio";
 import Telegram from "./Icons/Telegram";
@@ -50,35 +51,6 @@ const CreateEventForm = ({
 
     return (
         <div className="border-2 bg-brand-50 border-brand-100 p-4 rounded-lg">
-            {/* <Formik
-                initialformik.values={FORM_INITIAL_formik.values}
-                validate={(formik.values) => {
-                    // let formik.errors: any = {};
-                    // if (!formik.values.title) {
-                    //     formik.errors.title = "Title is required";
-                    // }
-                    // if (!formik.values.description) {
-                    //     formik.errors.description = "Description is required";
-                    // }
-                    // if (!formik.values.venue) {
-                    //     formik.errors.venue = "Venue is required";
-                    // }
-                    // return formik.errors;
-                }}
-                onSubmit={(formik.values, { setSubmitting }) => {
-                    console.log(formik.values);
-                    setSubmitting(false);
-                }}
-            >
-                {({
-                    formik.values,
-                    formik.errors,
-                    formik.touched,
-                    formik.handleChange,
-                    formik.handleSubmit,
-                    isSubmitting,
-                    formik.handleBlur,
-                }) => ( */}
             <form
                 onSubmit={formik.handleSubmit}
                 className="flex flex-col space-y-4"
@@ -166,21 +138,60 @@ const CreateEventForm = ({
                 </FormInputWrapper>
 
                 <FormInputWrapper>
-                    <Radio
+                    <H6 className="text-gray-700 mb-[6px] font-inter">
+                        Ticket Limit
+                    </H6>
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="flex flex-col">
+                            <input
+                                type="radio"
+                                name="ticketcap"
+                                id="unlimited"
+                                className="hidden peer"
+                                value="unlimited"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            <label
+                                htmlFor="unlimited"
+                                className="border-2 text-center peer-checked:bg-brand-500 peer-checked:text-white border-brand-500 bg-transparent rounded-lg text-brand-500 px-2 py-4"
+                            >
+                                Unlimited
+                            </label>
+                        </div>
+                        <div className="flex flex-col">
+                            <input
+                                type="radio"
+                                name="ticketcap"
+                                id="limited"
+                                className="peer hidden"
+                                value="limited"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            <label
+                                htmlFor="limited"
+                                className="border-2 peer-checked:bg-brand-500 peer-checked:text-white text-center border-brand-500 bg-transparent rounded-lg text-brand-500 px-2 py-4"
+                            >
+                                Limited
+                            </label>
+                        </div>
+                    </div>
+                </FormInputWrapper>
+                {/* <Radio
                         label="Tickets Capped"
                         name="ticketcap"
                         id="ticketcap"
                         value={formik.values.ticketcap}
-                        onChange={formik.handleChange}
+                        // onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         values={[
                             { name: "Unlimited", value: "nocap" },
                             { name: "Limited", value: "limited" },
                         ]}
-                    />
-                </FormInputWrapper>
+                    /> */}
 
-                {formik.values.ticketcap === "nocap" && (
+                {formik.values.ticketcap === "limited" && (
                     <FormInputWrapper>
                         <FormInput
                             name="tickets"
@@ -210,37 +221,48 @@ const CreateEventForm = ({
                             />
                         </label>
                     </FormInputWrapper>
-                    {/* <FormInputWrapper>
-                                <FormInput
-                                    label="Venue for Input"
-                                    placeholder="Venue"
-                                    id="venue"
-                                    name="venue"
-                                    value={formik.values.venue}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    error={
-                                        formik.errors.venue !== undefined &&
-                                        formik.touched.venue
-                                    }
-                                    errorMessage={formik.errors.venue}
-                                />
-                            </FormInputWrapper> */}
                 </div>
 
                 <FormInputWrapper>
-                    <Radio
-                        label="Event Type"
-                        name="eventtype"
-                        id="eventtype"
-                        value={formik.values.eventtype}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        values={[
-                            { name: "IRL", value: "irl" },
-                            { name: "Virtual", value: "virtual" },
-                        ]}
-                    />
+                    <H6 className="text-gray-700 mb-[6px] font-inter">
+                        Event Type
+                    </H6>
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="flex flex-col">
+                            <input
+                                type="radio"
+                                name="eventtype"
+                                id="irl"
+                                className="hidden peer"
+                                value="irl"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            <label
+                                htmlFor="irl"
+                                className="border-2 text-center peer-checked:bg-brand-500 peer-checked:text-white border-brand-500 bg-transparent rounded-lg text-brand-500 px-2 py-4"
+                            >
+                                IRL
+                            </label>
+                        </div>
+                        <div className="flex flex-col">
+                            <input
+                                type="radio"
+                                name="eventtype"
+                                id="virtual"
+                                className="peer hidden"
+                                value="virtual"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            <label
+                                htmlFor="virtual"
+                                className="border-2 peer-checked:bg-brand-500 peer-checked:text-white text-center border-brand-500 bg-transparent rounded-lg text-brand-500 px-2 py-4"
+                            >
+                                Virtual
+                            </label>
+                        </div>
+                    </div>
                 </FormInputWrapper>
 
                 <FormInputWrapper>
@@ -412,48 +434,7 @@ const CreateEventForm = ({
                         </div>
                     </div>
                 </div>
-                {/* <FormInputWrapper>
-                            <FormInput
-                                placeholder="Enter your email"
-                                id="email"
-                                label="Email"
-                                type="email"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.email}
-                                error={
-                                    formik.errors.email !== undefined && formik.touched.email
-                                }
-                                errorMessage={formik.errors.email}
-                                className="bg-purple-500"
-                                leftIcon={<Mail />}
-                            />
-                        </FormInputWrapper> */}
-                {/* <FormInputWrapper>
-                            <FormInput
-                                placeholder="Enter your phone number"
-                                id="phone"
-                                label="Phone"
-                                type="tel"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.phone}
-                                error={
-                                    formik.errors.phone !== undefined && formik.touched.phone
-                                }
-                                errorMessage={formik.errors.phone}
-                                className="bg-purple-500"
-                                pattern="[0-9]{10}"
-                                name="phone"
-                                leftIcon={<Phone />}
-                            />
-                        </FormInputWrapper> */}
-                {/* <div className="flex items-end space-x-[2px]">
-                            <span className="text-black">Price:</span>
-                            <H4 className="text-brand-600 font-semibold text-xl leading-tight">
-                                Free
-                            </H4>
-                        </div> */}
+
                 <button
                     type="submit"
                     className="bg-brand-600 max-w-fit text-md border-2 focus:ring-2 focus:ring-brand-500 outline-none ring-offset-2 border-transparent shadow-md py-1 px-4 w-full h-full rounded-md active:ring-2 active:ring-brand-500"
@@ -461,8 +442,6 @@ const CreateEventForm = ({
                     Create
                 </button>
             </form>
-            {/* )} */}
-            {/* </Formik> */}
         </div>
     );
 };
