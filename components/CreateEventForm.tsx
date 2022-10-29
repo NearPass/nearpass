@@ -26,9 +26,7 @@ const FORM_INITIAL_VALUES = {
     venue: "",
     datetime: "1998-09-15T23:00",
     hostname: "",
-    hostwallet: "",
     hostemail: "",
-    passgraphic: "",
     extraquestions: [],
     telegramgroup: "",
     discordinvitelink: "",
@@ -65,7 +63,10 @@ const CreateEventForm = ({
                 </div>
                 <FormInputWrapper>
                     {formik.values.thumbnail ? (
-                        <img />
+                        <img
+                            className="rounded-lg"
+                            src={formik.values.thumbnail}
+                        />
                     ) : (
                         <label
                             htmlFor="thumbnail"
@@ -80,7 +81,16 @@ const CreateEventForm = ({
                                 name="thumbnail"
                                 id="thumbnail"
                                 value={formik.values.thumbnail}
-                                onChange={formik.handleChange}
+                                onChange={(e) => {
+                                    if (e.target !== null) {
+                                        formik.setFieldValue(
+                                            "thumbnail",
+                                            URL.createObjectURL(
+                                                e.target.files[0]
+                                            )
+                                        );
+                                    }
+                                }}
                                 onBlur={formik.handleBlur}
                                 accept=".jpg, .png"
                             />
