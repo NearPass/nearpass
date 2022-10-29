@@ -27,7 +27,6 @@ const FORM_INITIAL_VALUES = {
     datetime: "1998-09-15T23:00",
     hostname: "",
     hostemail: "",
-    extraquestions: [],
     telegramgroup: "",
     discordinvitelink: "",
     question1: "",
@@ -428,7 +427,11 @@ const CreateEventForm = ({
                                 value={formik.values.faqquestion1}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.faqquestion1 !== ""}
+                                error={
+                                    formik.errors.faqquestion1 !== undefined &&
+                                    formik.touched.faqquestion1 &&
+                                    formik.touched.answer1
+                                }
                                 errorMessage={formik.errors.faqquestion1}
                             />
                             <FormInput
@@ -439,7 +442,7 @@ const CreateEventForm = ({
                                 value={formik.values.answer1}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.answer1 !== ""}
+                                error={formik.errors.answer1 !== undefined}
                                 errorMessage={formik.errors.answer1}
                             />
                         </div>
@@ -452,7 +455,11 @@ const CreateEventForm = ({
                                 value={formik.values.faqquestion2}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.faqquestion2 !== ""}
+                                error={
+                                    formik.errors.faqquestion2 !== undefined &&
+                                    formik.touched.faqquestion2 &&
+                                    formik.touched.answer2
+                                }
                                 errorMessage={formik.errors.faqquestion2}
                             />
                             <FormInput
@@ -463,7 +470,7 @@ const CreateEventForm = ({
                                 value={formik.values.answer2}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                error={formik.errors.answer2 !== ""}
+                                error={formik.errors.answer2 !== undefined}
                                 errorMessage={formik.errors.answer2}
                             />
                         </div>
