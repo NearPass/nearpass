@@ -1,38 +1,32 @@
 // Dedicated page for every event containing information like description, venue, date, time and sign up form.
 
 import { Disclosure } from "@headlessui/react";
+import axios from "axios";
 import clsx from "clsx";
 import { useFormik } from "formik";
-import AttendeesSection from "../../../components/AttendeesSection";
-import BuyTicketForm from "../../../components/BuyTicketForm";
 import CreateEventForm from "../../../components/CreateEventForm";
-import FAQSection from "../../../components/FAQSection";
 import FormInput from "../../../components/FormInput";
 import FormInputWrapper from "../../../components/FormInputWrapper";
 import { H1, H3, H4, H5, H6 } from "../../../components/Headings";
-import Host from "../../../components/Host";
 import Calendar from "../../../components/Icons/Calendar";
 import ChevronDown from "../../../components/Icons/ChevronDown";
 import Mail from "../../../components/Icons/Mail";
 import MarkerPin from "../../../components/Icons/MarkerPin";
 import MessageChatCircle from "../../../components/Icons/MessageChatCircle";
 import Telegram from "../../../components/Icons/Telegram";
-import LocationSection from "../../../components/LocationSection";
-import Text from "../../../components/Text";
 
 const FORM_INITIAL_VALUES = {
     title: "",
     description: "",
     thumbnail: undefined,
     ticketcap: "nocap",
-    tickets: 100,
+    tickets: 0,
     price: 0,
     eventtype: "",
     venue: "",
     datetime: "1998-09-15T23:00",
     hostname: "",
     hostemail: "",
-    extraquestions: [],
     telegramgroup: "",
     discordinvitelink: "",
     question1: "",
@@ -50,11 +44,56 @@ const dateTimeLocalToString = (datetimelocal: string) => {
 const CreateEvent = () => {
     const formik = useFormik({
         initialValues: FORM_INITIAL_VALUES,
-        onSubmit: (values, { setSubmitting }) => {
-            console.log(values);
-            setSubmitting(false);
+        onSubmit: async (values, { setSubmitting }) => {
+            await axios.post("/api/hello", values);
         },
-        validate: (values) => {},
+        validate: (values) => {
+            const errors = {};
+            if (!values.thumbnail) {
+                errors.thumbnail = "Thumbnail is required";
+            }
+            if (!values.title) {
+                errors.title = "Title is required";
+            }
+            if (!values.ticketcap) {
+                errors.ticketcap = "Ticket Capacity is required";
+            }
+            if (!values.price) {
+                errors.price = "Price is required";
+            }
+            if (!values.hostname) {
+                errors.hostname = "Host Name is required";
+            }
+            if (!values.hostemail) {
+                errors.hostemail = "Host Email is required";
+            }
+            if (!values.eventtype) {
+                errors.eventtype = "Event Type is required";
+            }
+            if (values.eventtype === "irl" && !values.venue) {
+                errors.venue = "Venue is required";
+            }
+            if (values.ticketcap === "limited" && !values.tickets) {
+                errors.tickets = "Maximum Tickets is required";
+            }
+            if (
+                values.faqquestion1 === ""
+                    ? values.answer1 !== ""
+                    : values.answer1 === ""
+            ) {
+                errors.faqquestion1 =
+                    "Question and answer both must be provided";
+            }
+            if (
+                values.faqquestion2 === ""
+                    ? values.answer2 !== ""
+                    : values.answer2 === ""
+            ) {
+                errors.faqquestion2 =
+                    "Question and answer both must be provided";
+            }
+            return errors;
+        },
     });
 
     return (
