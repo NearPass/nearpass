@@ -211,6 +211,11 @@ const CreateEventForm = ({
                             value={formik.values.tickets}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
+                            error={
+                                formik.touched.tickets &&
+                                formik.errors.tickets !== ""
+                            }
+                            errorMessage={formik.errors.tickets}
                         />
                     </FormInputWrapper>
                 )}
@@ -331,6 +336,11 @@ const CreateEventForm = ({
                         value={formik.values.hostname}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        error={
+                            formik.errors.hostname !== undefined &&
+                            formik.touched.hostname
+                        }
+                        errorMessage={formik.errors.hostname}
                     />
                 </FormInputWrapper>
 
@@ -344,6 +354,11 @@ const CreateEventForm = ({
                         value={formik.values.hostemail}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        error={
+                            formik.errors.hostemail !== undefined &&
+                            formik.touched.hostemail
+                        }
+                        errorMessage={formik.errors.hostemail}
                     />
                 </FormInputWrapper>
                 <div className="border-t-2 border-brand-200"></div>
@@ -413,6 +428,8 @@ const CreateEventForm = ({
                                 value={formik.values.faqquestion1}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                error={formik.errors.faqquestion1 !== ""}
+                                errorMessage={formik.errors.faqquestion1}
                             />
                             <FormInput
                                 name="answer1"
@@ -422,6 +439,8 @@ const CreateEventForm = ({
                                 value={formik.values.answer1}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                error={formik.errors.answer1 !== ""}
+                                errorMessage={formik.errors.answer1}
                             />
                         </div>
                         <div className="flex flex-col border-2 border-brand-200 p-4 rounded-lg">
@@ -433,6 +452,8 @@ const CreateEventForm = ({
                                 value={formik.values.faqquestion2}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                error={formik.errors.faqquestion2 !== ""}
+                                errorMessage={formik.errors.faqquestion2}
                             />
                             <FormInput
                                 name="answer2"
@@ -442,6 +463,8 @@ const CreateEventForm = ({
                                 value={formik.values.answer2}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                error={formik.errors.answer2 !== ""}
+                                errorMessage={formik.errors.answer2}
                             />
                         </div>
                     </div>
