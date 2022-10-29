@@ -1,7 +1,6 @@
 // Dedicated page for every event containing information like description, venue, date, time and sign up form.
 
 import { Disclosure } from "@headlessui/react";
-import axios from "axios";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import CreateEventForm from "../../../components/CreateEventForm";
@@ -14,6 +13,7 @@ import Mail from "../../../components/Icons/Mail";
 import MarkerPin from "../../../components/Icons/MarkerPin";
 import MessageChatCircle from "../../../components/Icons/MessageChatCircle";
 import Telegram from "../../../components/Icons/Telegram";
+import fileFromPath from "../../../helpers/ipfs";
 
 const FORM_INITIAL_VALUES = {
     title: "",
@@ -45,7 +45,10 @@ const CreateEvent = () => {
     const formik = useFormik({
         initialValues: FORM_INITIAL_VALUES,
         onSubmit: async (values, { setSubmitting }) => {
-            await axios.post("/api/hello", values);
+            console.log("submit");
+
+            let result = await fileFromPath(values.title, values.thumbnail);
+            console.log(result);
         },
         validate: (values) => {
             const errors = {};
