@@ -10,6 +10,8 @@ interface AccountDetailsProps {
     signOut: () => void;
 }
 
+const EVENTS_CONTRACT = "dev-1667138638377-68355460764535";
+
 const AccountDetails = ({
     accountId,
     balance,
@@ -22,7 +24,7 @@ const AccountDetails = ({
         if (walletConnection !== null) {
             if (walletConnection) {
                 walletConnection.requestSignIn({
-                    contractId: "testing5.testnet",
+                    contractId: EVENTS_CONTRACT,
                     successUrl: "http://localhost:3000",
                     failureUrl: "localhost:3000",
                 });
