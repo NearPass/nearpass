@@ -14,6 +14,8 @@ import MarkerPin from "../../../components/Icons/MarkerPin";
 import MessageChatCircle from "../../../components/Icons/MessageChatCircle";
 import Telegram from "../../../components/Icons/Telegram";
 import fileFromPath from "../../../helpers/ipfs";
+import useWallet from "../../../helpers/useWallet";
+import { Account, Contract, utils } from "near-api-js";
 
 const FORM_INITIAL_VALUES = {
     title: "",
@@ -41,14 +43,57 @@ const dateTimeLocalToString = (datetimelocal: string) => {
     return new Date(datetimelocal).toString();
 };
 
+function titleToEventId(title: string) {
+    let titleSplit = title.split(" ");
+    let titleLower = titleSplit.map((word) => {
+        return `${word[0].toLowerCase()}${word.slice(1, word.length)}`;
+    });
+    return titleLower.join("-");
+}
+
+const EVENTS_CONTRACT = "dev-1667138638377-68355460764535";
+
 const CreateEvent = () => {
+    const [near, walletConnection] = useWallet();
+
+    async function prepareEventContract() {
+        let account = await near?.account(
+            walletConnection?.getAccountId() as string
+        );
+        const contract = new Contract(account as Account, EVENTS_CONTRACT, {
+            changeMethods: ["createEvent"],
+            viewMethods: [],
+        });
+        return contract;
+    }
+
+    async function createEventOnChain(ipfsResult) {
+        let eventContract = await prepareEventContract();
+        const tx = await eventContract.createEvent({
+            args: {
+                eventId: titleToEventId(formik.values.title),
+                title: formik.values.title,
+                eventMetadataUrl: ipfsResult,
+                eventStart: Date.now(),
+                hostName: formik.values.hostname,
+                price: utils.format.formatNearAmount(
+                    formik.values.price.toString()
+                ),
+            },
+        });
+        console.log(tx);
+    }
+
     const formik = useFormik({
         initialValues: FORM_INITIAL_VALUES,
         onSubmit: async (values, { setSubmitting }) => {
             console.log("submit");
 
-            let result = await fileFromPath(values.title, values.thumbnail);
-            console.log(result);
+            let result = await fileFromPath(
+                values.title,
+                values.thumbnail,
+                (result: any) => createEventOnChain(result)
+            );
         },
         validate: (values) => {
             const errors = {};
