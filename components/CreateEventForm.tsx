@@ -146,7 +146,7 @@ const CreateEventForm = ({
                     </label>
                 </FormInputWrapper>
 
-                <FormInputWrapper>
+                {/* <FormInputWrapper>
                     <H6 className="text-gray-700 mb-[6px] font-inter">
                         Ticket Limit
                     </H6>
@@ -187,18 +187,6 @@ const CreateEventForm = ({
                         </div>
                     </div>
                 </FormInputWrapper>
-                {/* <Radio
-                        label="Tickets Capped"
-                        name="ticketcap"
-                        id="ticketcap"
-                        value={formik.values.ticketcap}
-                        // onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        values={[
-                            { name: "Unlimited", value: "nocap" },
-                            { name: "Limited", value: "limited" },
-                        ]}
-                    /> */}
 
                 {formik.values.ticketcap === "limited" && (
                     <FormInputWrapper>
@@ -217,7 +205,7 @@ const CreateEventForm = ({
                             errorMessage={formik.errors.tickets}
                         />
                     </FormInputWrapper>
-                )}
+                )} */}
 
                 <div className="flex w-full space-x-2 justify-between">
                     <FormInputWrapper>
