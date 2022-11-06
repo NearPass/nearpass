@@ -14,8 +14,6 @@ import MarkerPin from "../../../components/Icons/MarkerPin";
 import MessageChatCircle from "../../../components/Icons/MessageChatCircle";
 import Telegram from "../../../components/Icons/Telegram";
 import fileFromPath from "../../../helpers/ipfs";
-import useWallet from "../../../helpers/useWallet";
-import { Account, Contract, utils } from "near-api-js";
 import useEventContract from "../../../helpers/useEventContract";
 
 const FORM_INITIAL_VALUES = {
@@ -52,16 +50,56 @@ const CreateEvent = () => {
         onSubmit: async (values, { setSubmitting }) => {
             console.log("submit");
 
-            let { title, price, hostname } = formik.values;
+            let {
+                title,
+                price,
+                hostname,
+                hostemail,
+                venue,
+                eventtype,
+                telegramgroup,
+                discordinvitelink,
+                faqquestion1,
+                faqquestion2,
+                question1,
+                question2,
+                answer1,
+                answer2,
+                datetime,
+                description,
+                thumbnail,
+            } = formik.values;
+
+            let eventMetadata = {
+                description,
+                eventType: eventtype,
+                venue,
+                hostemail,
+                telegram: telegramgroup,
+                discord: discordinvitelink,
+                faqquestion1,
+                faqquestion2,
+                answer1,
+                answer2,
+                question1,
+                question2,
+            };
 
             let result = await fileFromPath(
-                values.title,
-                values.thumbnail,
+                title,
+                thumbnail,
+                eventMetadata,
                 (result: any) =>
-                    createEventOnChain(
-                        { title, price, hostName: hostname },
-                        result
-                    )
+                    createEventOnChain({
+                        title,
+                        hostName: hostname,
+                        price,
+                        timestamp: new Date(datetime).getTime(),
+                        eventMetadata: {
+                            ...eventMetadata,
+                            thumbnail: result.url,
+                        },
+                    })
             );
         },
         validate: (values) => {
