@@ -12,7 +12,7 @@ const GET_EVENTS = `{
     events {
         id
         title
-        image
+        thumbnail
         eventType
         active
         price
@@ -39,7 +39,6 @@ const Home: NextPage = () => {
                     query: GET_EVENTS,
                 }
             );
-            console.log(res.data.data.events);
             setEventData(res.data.data.events);
         })();
     }, []);
