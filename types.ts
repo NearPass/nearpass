@@ -13,6 +13,7 @@ export interface Event {
     discord?: string;
     host: Host;
 }
+
 export interface Host {
     name: string;
     address: string;
