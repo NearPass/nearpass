@@ -2,34 +2,48 @@
 
 import type { NextPage } from "next";
 import EventCard from "../components/Event/EventCard";
-import { H1, H2, H4 } from "../components/Headings";
+import { H1, H4 } from "../components/Headings";
 import { Event } from "../types";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
-const EVENT_DATA: Event[] = [
-    {
-        hostName: "Nikhil",
-        attendees: 11,
-        eventTitle: "Learn from Founders of 9 Figure Online Stores",
-        thumbnailUrl:
-            "https://secure-content.meetupstatic.com/images/classic-events/507570333/530x298.webp",
-    },
-    {
-        hostName: "Augustine Correa",
-        attendees: 415,
-        eventTitle: "Global AI Developer Days 2022 - Mumbai",
-        thumbnailUrl:
-            "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F367894019%2F9417950381%2F1%2Foriginal.20221005-214739?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=0435ac94af403d0bd64dfb8c943fd029",
-    },
-    {
-        hostName: "Sudato O'Benshee",
-        eventTitle: "Early Access AirDrop Details",
-        attendees: 13,
-        thumbnailUrl:
-            "https://www.meetup.com/_next/image/?url=https%3A%2F%2Fsecure-content.meetupstatic.com%2Fimages%2Fclassic-events%2F507464163%2F676x380.webp&w=3840&q=75",
-    },
-];
+const GET_EVENTS = `{ 
+    events {
+        id
+        title
+        image
+        eventType
+        active
+        price
+        telegram
+        discord
+        venue
+        timestamp
+        host { 
+            name
+            address
+            email
+        }
+        description            
+    }
+}`;
 
 const Home: NextPage = () => {
+    const [eventData, setEventData] = useState<Event[]>();
+    useEffect(() => {
+        (async () => {
+            const res = await axios.post(
+                "https://api.thegraph.com/subgraphs/name/therealharpaljadeja/nearpass",
+                {
+                    query: GET_EVENTS,
+                }
+            );
+            console.log(res.data.data.events);
+            setEventData(res.data.data.events);
+        })();
+    }, []);
+
     return (
         <div className="flex space-y-8 flex-1 p-5 flex-col">
             <div className="flex flex-col space-y-2">
@@ -39,9 +53,18 @@ const Home: NextPage = () => {
                 </H4>
             </div>
             <div className="grid gap-2 grid-cols-4">
-                {EVENT_DATA.map((event) => (
-                    <EventCard event={event} key={event.hostName} />
-                ))}
+                {eventData &&
+                    eventData.map((event) => (
+                        <Link
+                            id={event.id}
+                            key={event.id}
+                            href={`/event/${event.id}`}
+                        >
+                            <a>
+                                <EventCard event={event} key={event.id} />
+                            </a>
+                        </Link>
+                    ))}
             </div>
         </div>
     );
