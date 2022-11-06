@@ -8,7 +8,9 @@ body:
     - type: markdown
       attributes:
           value: |
-              Thanks for taking the time to fill out this bug report!
+              ## Thanks for taking the time to fill out this bug report!
+              --- 
+              #### We're sorry that you are experience an issue. So that we can help you efficiently, please fill in this form to the best your ability. The more information that you can provide the easier we will be able to help you.
     - type: input
       id: contact
       attributes:
