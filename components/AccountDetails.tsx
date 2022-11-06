@@ -10,7 +10,7 @@ interface AccountDetailsProps {
     signOut: () => void;
 }
 
-const EVENTS_CONTRACT = "dev-1667138638377-68355460764535";
+const EVENTS_CONTRACT = process.env.NEXT_PUBLIC_EVENT_CONTRACT_ADDRESS;
 
 const AccountDetails = ({
     accountId,
