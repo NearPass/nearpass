@@ -1,4 +1,5 @@
 import { Formik } from "formik";
+import useWallet from "../helpers/useWallet";
 import FormInput from "./FormInput";
 import FormInputWrapper from "./FormInputWrapper";
 import { H3, H4, H5, H6 } from "./Headings";
@@ -11,7 +12,9 @@ type FormInputs = {
     phone?: string;
 };
 
-const BuyTicketForm = () => {
+const BuyTicketForm = ({ price }: { price: string }) => {
+    const [_, walletConnection] = useWallet();
+
     return (
         <div className="border-2 bg-brand-50 border-brand-100 p-4 rounded-lg">
             <Formik
@@ -44,14 +47,16 @@ const BuyTicketForm = () => {
                         onSubmit={handleSubmit}
                         className="flex flex-col space-y-4"
                     >
-                        <div className="flex flex-col">
-                            <H6>Connected as:</H6>
-                            <i>
-                                <H3 className="font-medium text-brand-500">
-                                    harpal.near
-                                </H3>
-                            </i>
-                        </div>
+                        {walletConnection && (
+                            <div className="flex flex-col">
+                                <H6>Connected as:</H6>
+                                <i>
+                                    <H3 className="font-medium text-brand-500">
+                                        {walletConnection?.getAccountId()}
+                                    </H3>
+                                </i>
+                            </div>
+                        )}
                         <FormInputWrapper>
                             <FormInput
                                 placeholder="Enter your name"
@@ -107,7 +112,7 @@ const BuyTicketForm = () => {
                         <div className="flex items-end space-x-[2px]">
                             <span className="text-black">Price:</span>
                             <H4 className="text-brand-600 font-semibold text-xl leading-tight">
-                                Free
+                                {price ? { price } : "Free"}
                             </H4>
                         </div>
                         <button
