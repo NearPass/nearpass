@@ -29,18 +29,20 @@ const Event = () => {
             description
             thumbnail
             timestamp
+            price
             host {
                 name
                 address
                 email
             }
             faq {
-                faqquestion1
+                question1
                 answer1
-                faqquestion2
+                question2
                 answer2
             }
-            
+            question1
+            question2
             telegram
             discord
         }
@@ -65,12 +67,12 @@ const Event = () => {
         if (event && event.thumbnail) {
             (async () => {
                 try {
-                let res = await axios.get(
+                    let res = await axios.get(
                         `https://ipfs.io/ipfs/${event.thumbnail.replace(
                             "ipfs://",
                             ""
                         )}`
-                );
+                    );
                     let image = await axios.get(
                         `https://ipfs.io/ipfs/${res.data.image.replace(
                             "ipfs://",
@@ -106,7 +108,15 @@ const Event = () => {
                             <H3 className="font-semibold text-gray-700">
                                 Registration
                             </H3>
-                            {event && <BuyTicketForm price={event.price} />}
+                            {event && (
+                                <BuyTicketForm
+                                    extraQuestions={[
+                                        event.question1,
+                                        event.question2,
+                                    ]}
+                                    price={event.price}
+                                />
+                            )}
                         </div>
                         <div className="flex flex-col space-y-2">
                             <div className="text-2xl font-medium  text-black">
@@ -122,9 +132,11 @@ const Event = () => {
                                 </div>
                             )}
                         </div>
-                        <div>
-                            <FAQSection />
-                        </div>
+                        {event && event.faq && (
+                            <div>
+                                <FAQSection faq={event.faq} />
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div>
@@ -150,8 +162,12 @@ const Event = () => {
                                     Share this event
                                 </button> */}
                                 {event && event.discord && (
-                                    <a href={event.discord}>
-                                        <button className="bg-[#7289da] flex space-x-2 max-w-fit text-lg border-2 focus:ring-2 focus:ring-[#7289da] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-[#7289da]">
+                                    <a
+                                        href={event.discord}
+                                        className="outline-none flex"
+                                        target="_blank"
+                                    >
+                                        <button className="bg-[#7289da] flex space-x-2 text-lg border-2 focus:ring-2 focus:ring-[#7289da] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-[#7289da]">
                                             <MessageChatCircle className="!stroke-white" />
                                             <H4 className="text-white">
                                                 Join Discord
