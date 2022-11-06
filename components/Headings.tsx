@@ -82,7 +82,7 @@ export const H6 = ({
     children,
     className,
 }: {
-    children: string;
+    children: any;
     className?: string;
 }) => {
     return (
