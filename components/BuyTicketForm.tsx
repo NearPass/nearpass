@@ -1,4 +1,5 @@
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
+import { utils } from "near-api-js";
 import useWallet from "../helpers/useWallet";
 import FormInput from "./FormInput";
 import FormInputWrapper from "./FormInputWrapper";
@@ -10,15 +11,29 @@ type FormInputs = {
     email?: string;
     name?: string;
     phone?: string;
+    question1?: string;
+    question2?: string;
 };
 
-const BuyTicketForm = ({ price }: { price: string }) => {
+const BuyTicketForm = ({
+    price,
+    extraQuestions,
+}: {
+    price: string;
+    extraQuestions: string[];
+}) => {
     const [_, walletConnection] = useWallet();
 
     return (
         <div className="border-2 bg-brand-50 border-brand-100 p-4 rounded-lg">
             <Formik
-                initialValues={{ email: "", name: "", phone: "" }}
+                initialValues={{
+                    email: "",
+                    name: "",
+                    phone: "",
+                    question1: "",
+                    question2: "",
+                }}
                 validate={(values) => {
                     let errors: FormInputs = {};
                     if (!values.name) {
@@ -26,6 +41,12 @@ const BuyTicketForm = ({ price }: { price: string }) => {
                     }
                     if (!values.email) {
                         errors.email = "Email is required";
+                    }
+                    if (!values.question1) {
+                        errors.question1 = "Answer is required";
+                    }
+                    if (!values.question2) {
+                        errors.question2 = "Answer is required";
                     }
                     return errors;
                 }}
@@ -109,10 +130,38 @@ const BuyTicketForm = ({ price }: { price: string }) => {
                                 leftIcon={<Phone />}
                             />
                         </FormInputWrapper>
+                        {extraQuestions &&
+                            extraQuestions.map((question, index) => (
+                                <FormInputWrapper>
+                                    <FormInput
+                                        placeholder={question}
+                                        id={`question${index + 1}`}
+                                        label={question}
+                                        type="text"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values[`question${index + 1}`]}
+                                        error={
+                                            errors[`question${index + 1}`] !==
+                                                undefined &&
+                                            touched[`question${index + 1}`]
+                                        }
+                                        errorMessage={
+                                            errors[`question${index + 1}`]
+                                        }
+                                        className="bg-purple-500"
+                                        name={`question${index + 1}`}
+                                    />
+                                </FormInputWrapper>
+                            ))}
                         <div className="flex items-end space-x-[2px]">
                             <span className="text-black">Price:</span>
                             <H4 className="text-brand-600 font-semibold text-xl leading-tight">
-                                {price ? { price } : "Free"}
+                                {price
+                                    ? `${utils.format.formatNearAmount(
+                                          price
+                                      )} NEAR`
+                                    : "Free"}
                             </H4>
                         </div>
                         <button
