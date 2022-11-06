@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <div className="flex bg-white h-screen w-full">
             <Sidebar />
-            <div className="h-screen overflow-y-scroll">
+            <div className="h-screen w-full overflow-y-scroll">
                 <Component {...pageProps} />
             </div>
         </div>
