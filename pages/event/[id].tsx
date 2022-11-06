@@ -27,7 +27,7 @@ const Event = () => {
             id
             title
             description
-            image
+            thumbnail
             timestamp
             host {
                 name
@@ -62,13 +62,25 @@ const Event = () => {
     }, [router]);
 
     useEffect(() => {
-        if (event && event.image) {
+        if (event && event.thumbnail) {
             (async () => {
+                try {
                 let res = await axios.get(
-                    `https://ipfs.io/ipfs/${event.image.replace("ipfs://", "")}`
+                        `https://ipfs.io/ipfs/${event.thumbnail.replace(
+                            "ipfs://",
+                            ""
+                        )}`
                 );
-                console.log(res.data);
-                setImage(res.data);
+                    let image = await axios.get(
+                        `https://ipfs.io/ipfs/${res.data.image.replace(
+                            "ipfs://",
+                            ""
+                        )}`
+                    );
+                    setImage(image.data);
+                } catch (e) {
+                    console.log(e);
+                }
             })();
         }
     }, [event]);

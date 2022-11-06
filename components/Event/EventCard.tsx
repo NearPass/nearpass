@@ -5,20 +5,33 @@ import axios from "axios";
 import { H5, H6 } from "../Headings";
 
 const EventCard = ({ event }: { event: Event }) => {
-    const { title, image, host, timestamp } = event;
+    const { title, thumbnail, host, timestamp } = event;
 
     const [imageB64, setImageB64] = useState<string>();
 
     useEffect(() => {
-        if (image) {
+        if (thumbnail) {
             (async () => {
-                let res = await axios.get(
-                    `https://ipfs.io/ipfs/${image.replace("ipfs://", "")}`
-                );
-                setImageB64(res.data);
+                try {
+                    let res = await axios.get(
+                        `https://ipfs.io/ipfs/${thumbnail.replace(
+                            "ipfs://",
+                            ""
+                        )}`
+                    );
+                    let image = await axios.get(
+                        `https://ipfs.io/ipfs/${res.data.image.replace(
+                            "ipfs://",
+                            ""
+                        )}`
+                    );
+                    setImageB64(image.data);
+                } catch (e) {
+                    console.log(e);
+                }
             })();
         }
-    }, [image]);
+    }, [thumbnail]);
 
     return (
         <div className="w-full hover:bg-slate-50 hover:shadow-inner p-3 rounded-md flex flex-col space-y-2">
@@ -26,7 +39,7 @@ const EventCard = ({ event }: { event: Event }) => {
                 {/* <span className="absolute top-2 left-2 bg-brand-500 px-[6px] py-[3px] text-xs rounded-md">
                     {`${attendees} Attendees`}
                 </span> */}
-                {image && <img src={imageB64} />}
+                {thumbnail && <img src={imageB64} />}
             </div>
             <div className="flex flex-col space-y-1">
                 <H6 className="text-brand-500 text-sm font-semibold">
