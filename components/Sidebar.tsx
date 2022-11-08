@@ -7,6 +7,9 @@ import { WalletConnection, utils } from "near-api-js";
 import { H4, H5, H6 } from "./Headings";
 import AccountDetails from "./AccountDetails";
 import Link from "next/link";
+import Plus from "./Icons/Plus";
+import Ticket from "./Icons/Ticket";
+import CalendarCheck from "./Icons/CalendarCheck";
 
 const Sidebar = () => {
     let [_, walletConnection] = useWallet();
@@ -39,29 +42,53 @@ const Sidebar = () => {
         <div className="flex flex-col justify-between h-full border-r-2 border-gray-200 min-w-[270px] bg-white">
             <div>
                 <div className="text-emerald-800 p-5">
-                    <img src="/logo.png" className="bg-transparent h-14" />
-                </div>
-                <ul className="flex flex-col space-y-2 p-3 text-emerald-700">
                     <Link href="/">
                         <a>
-                            <SidebarMenuItem
-                                icon={<ZapIcon />}
-                                itemName="Upcoming Events"
+                            <img
+                                src="/logo.png"
+                                className="bg-transparent h-14"
                             />
                         </a>
                     </Link>
-                    <SidebarMenuItem
-                        icon={<CheckCircle />}
-                        itemName="Past Events"
-                    />
-                </ul>
+                </div>
+                <ul className="flex flex-col space-y-2 p-3 text-emerald-700"></ul>
             </div>
-            <div className="bg-white border-t-2 border-gray-200 px-2 py-4 flex items-center justify-center">
-                <AccountDetails
-                    accountId={accountId}
-                    balance={balance}
-                    signOut={signOut}
-                />
+            <div className="flex flex-col">
+                {accountId && (
+                    <div className="flex flex-col p-3 border-t-2 border-gray-200">
+                        <Link href="/profile/events/CreateEvent">
+                            <a>
+                                <SidebarMenuItem
+                                    icon={<Plus />}
+                                    itemName="Create Event"
+                                />
+                            </a>
+                        </Link>
+                        <Link href="/profile/events/CreateEvent">
+                            <a>
+                                <SidebarMenuItem
+                                    icon={<CalendarCheck />}
+                                    itemName="Created Events"
+                                />
+                            </a>
+                        </Link>
+                        <Link href="/profile/events/CreateEvent">
+                            <a>
+                                <SidebarMenuItem
+                                    icon={<Ticket />}
+                                    itemName="Tickets"
+                                />
+                            </a>
+                        </Link>
+                    </div>
+                )}
+                <div className="bg-white items-center justify-start border-t-2 border-gray-200 px-2 py-4">
+                    <AccountDetails
+                        accountId={accountId}
+                        balance={balance}
+                        signOut={signOut}
+                    />
+                </div>
             </div>
         </div>
     );
