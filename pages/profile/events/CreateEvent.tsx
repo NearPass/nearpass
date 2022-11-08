@@ -3,6 +3,7 @@
 import { Disclosure } from "@headlessui/react";
 import clsx from "clsx";
 import { useFormik } from "formik";
+import React from "react";
 import CreateEventForm from "../../../components/CreateEventForm";
 import FormInput from "../../../components/FormInput";
 import FormInputWrapper from "../../../components/FormInputWrapper";
@@ -13,8 +14,10 @@ import Mail from "../../../components/Icons/Mail";
 import MarkerPin from "../../../components/Icons/MarkerPin";
 import MessageChatCircle from "../../../components/Icons/MessageChatCircle";
 import Telegram from "../../../components/Icons/Telegram";
+import PrivateRoute from "../../../components/PrivateRoute";
 import fileFromPath from "../../../helpers/ipfs";
 import useEventContract from "../../../helpers/useEventContract";
+import useWallet from "../../../helpers/useWallet";
 
 const FORM_INITIAL_VALUES = {
     title: "",
@@ -44,6 +47,7 @@ const dateTimeLocalToString = (datetimelocal: string) => {
 
 const CreateEvent = () => {
     const { contract, createEventOnChain } = useEventContract();
+    const [_, walletConnection] = useWallet();
 
     const formik = useFormik({
         initialValues: FORM_INITIAL_VALUES,
@@ -152,266 +156,285 @@ const CreateEvent = () => {
     });
 
     return (
-        <div className="flex flex-col items-start space-y-8 justify-center pl-10 pr-28 pt-12">
-            <div className="flex flex-col space-y-2">
-                <H1>Create New Event</H1>
-                {/* <div className="flex space-x-2 items-center">
+        <PrivateRoute>
+            <div className="flex flex-col items-start space-y-8 justify-center pl-10 pr-28 pt-12">
+                <div className="flex flex-col space-y-2">
+                    <H1>Create New Event</H1>
+                    {/* <div className="flex space-x-2 items-center">
                     <Calendar />
                     <H4 className="text-purple-500 text-base">
                         Thu, Oct 27 · 6:30 PM IST
                     </H4>
                 </div> */}
-            </div>
-
-            <div className="grid grid-cols-2 gap-10 h-full w-full">
-                <div className="flex flex-col">
-                    <div className="flex space-y-4 flex-col">
-                        <div className="flex flex-col space-y-2 mb-6">
-                            <H3 className="font-semibold text-gray-700">
-                                Event Form
-                            </H3>
-                            <CreateEventForm formik={formik} />
-                        </div>
-                    </div>
                 </div>
-                <div className="flex space-y-4 flex-col sticky top-10">
-                    <H3 className="font-semibold text-gray-700">Preview</H3>
-                    {formik.values.thumbnail && (
-                        <img
-                            src={formik.values.thumbnail}
-                            className="rounded-lg"
-                        />
-                    )}
-                    <H3>{formik.values.title}</H3>
-                    <H5>{formik.values.description}</H5>
-                    {formik.values.datetime && (
-                        <div className="flex items-center space-x-2">
-                            <Calendar />
-                            <H5 className="font-medium text-brand-600 leading-tight">
-                                {dateTimeLocalToString(formik.values.datetime)}
-                            </H5>
-                        </div>
-                    )}
-                    {formik.values.price && (
-                        <div className="flex items-end space-x-2">
-                            <H5 className="leading-tight">Price:</H5>
-                            <H4 className="leading-tight text-brand-600">
-                                {`${formik.values.price.toString()} NEAR`}
-                            </H4>
-                        </div>
-                    )}
-                    <div className="grid grid-cols-2 gap-2">
-                        {(formik.values.eventtype ||
-                            formik.values.venue !== "") && (
-                            <div className="flex flex-col border-2 space-y-2 border-brand-500 p-2 rounded-lg">
-                                <H5>Venue Details</H5>
 
-                                {formik.values.eventtype === "irl" && (
-                                    <div className="flex items-center space-x-2">
-                                        <MarkerPin />
-                                        <H4 className="text-brand-600 leading-tight">
-                                            {formik.values.venue}
-                                        </H4>
-                                    </div>
-                                )}
-                                {formik.values.eventtype === "virtual" && (
-                                    <div className="flex items-center space-x-2">
-                                        <H4>Virtual</H4>
-                                    </div>
-                                )}
+                <div className="grid grid-cols-2 gap-10 h-full w-full">
+                    <div className="flex flex-col">
+                        <div className="flex space-y-4 flex-col">
+                            <div className="flex flex-col space-y-2 mb-6">
+                                <H3 className="font-semibold text-gray-700">
+                                    Event Form
+                                </H3>
+                                <CreateEventForm formik={formik} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex space-y-4 flex-col sticky top-10">
+                        <H3 className="font-semibold text-gray-700">Preview</H3>
+                        {formik.values.thumbnail && (
+                            <img
+                                src={formik.values.thumbnail}
+                                className="rounded-lg"
+                            />
+                        )}
+                        <H3>{formik.values.title}</H3>
+                        <H5>{formik.values.description}</H5>
+                        {formik.values.datetime && (
+                            <div className="flex items-center space-x-2">
+                                <Calendar />
+                                <H5 className="font-medium text-brand-600 leading-tight">
+                                    {dateTimeLocalToString(
+                                        formik.values.datetime
+                                    )}
+                                </H5>
                             </div>
                         )}
-                        {(formik.values.hostname ||
-                            formik.values.hostemail) && (
-                            <div className="flex flex-col border-2 border-brand-500 p-2 rounded-lg">
-                                <H5>Host Details</H5>
-                                <H4 className="text-brand-600">
-                                    {formik.values.hostname}
+                        {formik.values.price && (
+                            <div className="flex items-end space-x-2">
+                                <H5 className="leading-tight">Price:</H5>
+                                <H4 className="leading-tight text-brand-600">
+                                    {`${formik.values.price.toString()} NEAR`}
                                 </H4>
-                                <div className="flex items-center space-x-2">
-                                    <Mail />
-                                    <H4 className="text-brand-600 leading-tight">
-                                        {formik.values.hostemail}
-                                    </H4>
-                                </div>
                             </div>
                         )}
-                    </div>
-                    <div className="grid grid-cols-2 justify-items-center">
-                        {formik.values.telegramgroup && (
-                            <button className="bg-[#229ED9] flex space-x-2 max-w-fit text-lg border-2 focus:ring-2 focus:ring-[#229ED9] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full rounded-md active:ring-2 active:ring-[#229ED9]">
-                                <Telegram className="!stroke-white" />
-                                <H4 className="text-white">Join Telegram</H4>
-                            </button>
-                        )}
-                        {formik.values.discordinvitelink && (
-                            <button className="bg-[#7289da] flex space-x-2 max-w-fit text-lg border-2 focus:ring-2 focus:ring-[#7289da] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full rounded-md active:ring-2 active:ring-[#7289da]">
-                                <MessageChatCircle className="!stroke-white" />
-                                <H4 className="text-white">Join Discord</H4>
-                            </button>
-                        )}
-                    </div>
-                    <div className="border-2 bg-brand-50 border-brand-100 p-4 rounded-lg">
-                        <FormInputWrapper>
-                            <FormInput
-                                placeholder="Enter your name"
-                                id="name"
-                                label="Name"
-                                className="bg-purple-500"
-                                disabled
-                            />
-                        </FormInputWrapper>
-                        <FormInputWrapper>
-                            <FormInput
-                                placeholder="Enter your email"
-                                id="email"
-                                label="Email"
-                                type="email"
-                                className="bg-purple-500"
-                                disabled
-                                leftIcon={<Mail />}
-                            />
-                        </FormInputWrapper>
-                        {formik.values.question1 && (
-                            <FormInputWrapper>
-                                <FormInput
-                                    placeholder={formik.values.question1}
-                                    id="question1"
-                                    label={formik.values.question1}
-                                    type="text"
-                                    className="bg-purple-500"
-                                    disabled
-                                />
-                            </FormInputWrapper>
-                        )}
-                        {formik.values.question2 && (
-                            <FormInputWrapper>
-                                <FormInput
-                                    placeholder={formik.values.question2}
-                                    id="question1"
-                                    label={formik.values.question2}
-                                    type="text"
-                                    className="bg-purple-500"
-                                    disabled
-                                />
-                            </FormInputWrapper>
-                        )}
-                    </div>
-                    {formik.values.faqquestion1 && formik.values.answer1 && (
-                        <section className="text-2xl font-medium flex mb-6 flex-col space-y-4 text-black">
-                            <H3 className="font-semibold text-gray-700">FAQ</H3>
-                            <div className="flex flex-col items-start">
-                                <Disclosure>
-                                    {({ open }) => (
-                                        <div
-                                            className={clsx("w-full", {
-                                                "bg-gray-100": open,
-                                            })}
-                                        >
-                                            <Disclosure.Button
-                                                className={clsx(
-                                                    "text-left hover:bg-gray-50 p-4 flex justify-between w-full",
-                                                    {
-                                                        "border-b-2 border-gray-200":
-                                                            !open,
-                                                    }
-                                                )}
-                                            >
-                                                <H4 className="text-gray-700">
-                                                    {formik.values.faqquestion1}
-                                                </H4>
-                                                <div
-                                                    className={
-                                                        open ? `rotate-180` : ""
-                                                    }
-                                                >
-                                                    <ChevronDown
-                                                        className={clsx(
-                                                            "stroke-gray-400"
-                                                        )}
-                                                    />
-                                                </div>
-                                            </Disclosure.Button>
-                                            <Disclosure.Panel
-                                                className={clsx(
-                                                    "mt-2 pb-4 pl-4 w-full",
-                                                    {
-                                                        "border-b-2 border-gray-200":
-                                                            open,
-                                                    }
-                                                )}
-                                            >
-                                                <H5 className="text-gray-700">
-                                                    {formik.values.answer1}
-                                                </H5>
-                                            </Disclosure.Panel>
+                        <div className="grid grid-cols-2 gap-2">
+                            {(formik.values.eventtype ||
+                                formik.values.venue !== "") && (
+                                <div className="flex flex-col border-2 space-y-2 border-brand-500 p-2 rounded-lg">
+                                    <H5>Venue Details</H5>
+
+                                    {formik.values.eventtype === "irl" && (
+                                        <div className="flex items-center space-x-2">
+                                            <MarkerPin />
+                                            <H4 className="text-brand-600 leading-tight">
+                                                {formik.values.venue}
+                                            </H4>
                                         </div>
                                     )}
-                                </Disclosure>
-                                {formik.values.faqquestion2 &&
-                                    formik.values.answer2 && (
-                                        <Disclosure>
-                                            {({ open }) => (
-                                                <div
-                                                    className={clsx("w-full", {
-                                                        "bg-gray-100": open,
-                                                    })}
+                                    {formik.values.eventtype === "virtual" && (
+                                        <div className="flex items-center space-x-2">
+                                            <H4>Virtual</H4>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                            {(formik.values.hostname ||
+                                formik.values.hostemail) && (
+                                <div className="flex flex-col border-2 border-brand-500 p-2 rounded-lg">
+                                    <H5>Host Details</H5>
+                                    <H4 className="text-brand-600">
+                                        {formik.values.hostname}
+                                    </H4>
+                                    <div className="flex items-center space-x-2">
+                                        <Mail />
+                                        <H4 className="text-brand-600 leading-tight">
+                                            {formik.values.hostemail}
+                                        </H4>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        <div className="grid grid-cols-2 justify-items-center">
+                            {formik.values.telegramgroup && (
+                                <button className="bg-[#229ED9] flex space-x-2 max-w-fit text-lg border-2 focus:ring-2 focus:ring-[#229ED9] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full rounded-md active:ring-2 active:ring-[#229ED9]">
+                                    <Telegram className="!stroke-white" />
+                                    <H4 className="text-white">
+                                        Join Telegram
+                                    </H4>
+                                </button>
+                            )}
+                            {formik.values.discordinvitelink && (
+                                <button className="bg-[#7289da] flex space-x-2 max-w-fit text-lg border-2 focus:ring-2 focus:ring-[#7289da] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full rounded-md active:ring-2 active:ring-[#7289da]">
+                                    <MessageChatCircle className="!stroke-white" />
+                                    <H4 className="text-white">Join Discord</H4>
+                                </button>
+                            )}
+                        </div>
+                        <div className="border-2 bg-brand-50 border-brand-100 p-4 rounded-lg">
+                            <FormInputWrapper>
+                                <FormInput
+                                    placeholder="Enter your name"
+                                    id="name"
+                                    label="Name"
+                                    className="bg-purple-500"
+                                    disabled
+                                />
+                            </FormInputWrapper>
+                            <FormInputWrapper>
+                                <FormInput
+                                    placeholder="Enter your email"
+                                    id="email"
+                                    label="Email"
+                                    type="email"
+                                    className="bg-purple-500"
+                                    disabled
+                                    leftIcon={<Mail />}
+                                />
+                            </FormInputWrapper>
+                            {formik.values.question1 && (
+                                <FormInputWrapper>
+                                    <FormInput
+                                        placeholder={formik.values.question1}
+                                        id="question1"
+                                        label={formik.values.question1}
+                                        type="text"
+                                        className="bg-purple-500"
+                                        disabled
+                                    />
+                                </FormInputWrapper>
+                            )}
+                            {formik.values.question2 && (
+                                <FormInputWrapper>
+                                    <FormInput
+                                        placeholder={formik.values.question2}
+                                        id="question1"
+                                        label={formik.values.question2}
+                                        type="text"
+                                        className="bg-purple-500"
+                                        disabled
+                                    />
+                                </FormInputWrapper>
+                            )}
+                        </div>
+                        {formik.values.faqquestion1 && formik.values.answer1 && (
+                            <section className="text-2xl font-medium flex mb-6 flex-col space-y-4 text-black">
+                                <H3 className="font-semibold text-gray-700">
+                                    FAQ
+                                </H3>
+                                <div className="flex flex-col items-start">
+                                    <Disclosure>
+                                        {({ open }) => (
+                                            <div
+                                                className={clsx("w-full", {
+                                                    "bg-gray-100": open,
+                                                })}
+                                            >
+                                                <Disclosure.Button
+                                                    className={clsx(
+                                                        "text-left hover:bg-gray-50 p-4 flex justify-between w-full",
+                                                        {
+                                                            "border-b-2 border-gray-200":
+                                                                !open,
+                                                        }
+                                                    )}
                                                 >
-                                                    <Disclosure.Button
-                                                        className={clsx(
-                                                            "text-left hover:bg-gray-50 p-4 flex justify-between w-full",
-                                                            {
-                                                                "border-b-2 border-gray-200":
-                                                                    !open,
-                                                            }
-                                                        )}
+                                                    <H4 className="text-gray-700">
+                                                        {
+                                                            formik.values
+                                                                .faqquestion1
+                                                        }
+                                                    </H4>
+                                                    <div
+                                                        className={
+                                                            open
+                                                                ? `rotate-180`
+                                                                : ""
+                                                        }
                                                     >
-                                                        <H4 className="text-gray-700">
-                                                            {
-                                                                formik.values
-                                                                    .faqquestion2
-                                                            }
-                                                        </H4>
-                                                        <div
-                                                            className={
-                                                                open
-                                                                    ? `rotate-180`
-                                                                    : ""
-                                                            }
-                                                        >
-                                                            <ChevronDown
-                                                                className={clsx(
-                                                                    "stroke-gray-400"
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </Disclosure.Button>
-                                                    <Disclosure.Panel
+                                                        <ChevronDown
+                                                            className={clsx(
+                                                                "stroke-gray-400"
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </Disclosure.Button>
+                                                <Disclosure.Panel
+                                                    className={clsx(
+                                                        "mt-2 pb-4 pl-4 w-full",
+                                                        {
+                                                            "border-b-2 border-gray-200":
+                                                                open,
+                                                        }
+                                                    )}
+                                                >
+                                                    <H5 className="text-gray-700">
+                                                        {formik.values.answer1}
+                                                    </H5>
+                                                </Disclosure.Panel>
+                                            </div>
+                                        )}
+                                    </Disclosure>
+                                    {formik.values.faqquestion2 &&
+                                        formik.values.answer2 && (
+                                            <Disclosure>
+                                                {({ open }) => (
+                                                    <div
                                                         className={clsx(
-                                                            "mt-2 pb-4 pl-4 w-full",
+                                                            "w-full",
                                                             {
-                                                                "border-b-2 border-gray-200":
+                                                                "bg-gray-100":
                                                                     open,
                                                             }
                                                         )}
                                                     >
-                                                        <H5 className="text-gray-700">
-                                                            {
-                                                                formik.values
-                                                                    .answer2
-                                                            }
-                                                        </H5>
-                                                    </Disclosure.Panel>
-                                                </div>
-                                            )}
-                                        </Disclosure>
-                                    )}
-                            </div>
-                        </section>
-                    )}
+                                                        <Disclosure.Button
+                                                            className={clsx(
+                                                                "text-left hover:bg-gray-50 p-4 flex justify-between w-full",
+                                                                {
+                                                                    "border-b-2 border-gray-200":
+                                                                        !open,
+                                                                }
+                                                            )}
+                                                        >
+                                                            <H4 className="text-gray-700">
+                                                                {
+                                                                    formik
+                                                                        .values
+                                                                        .faqquestion2
+                                                                }
+                                                            </H4>
+                                                            <div
+                                                                className={
+                                                                    open
+                                                                        ? `rotate-180`
+                                                                        : ""
+                                                                }
+                                                            >
+                                                                <ChevronDown
+                                                                    className={clsx(
+                                                                        "stroke-gray-400"
+                                                                    )}
+                                                                />
+                                                            </div>
+                                                        </Disclosure.Button>
+                                                        <Disclosure.Panel
+                                                            className={clsx(
+                                                                "mt-2 pb-4 pl-4 w-full",
+                                                                {
+                                                                    "border-b-2 border-gray-200":
+                                                                        open,
+                                                                }
+                                                            )}
+                                                        >
+                                                            <H5 className="text-gray-700">
+                                                                {
+                                                                    formik
+                                                                        .values
+                                                                        .answer2
+                                                                }
+                                                            </H5>
+                                                        </Disclosure.Panel>
+                                                    </div>
+                                                )}
+                                            </Disclosure>
+                                        )}
+                                </div>
+                            </section>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </PrivateRoute>
     );
 };
 
