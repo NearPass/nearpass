@@ -24,7 +24,6 @@ const AccountDetails = ({
         if (walletConnection !== null) {
             if (walletConnection) {
                 walletConnection.requestSignIn({
-                    contractId: EVENTS_CONTRACT,
                     successUrl: "http://localhost:3000",
                     failureUrl: "localhost:3000",
                 });
