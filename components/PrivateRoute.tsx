@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
     return (
         <React.Fragment>
             {walletConnection && walletConnection.isSignedIn() ? (
-                { children }
+                children
             ) : (
                 <div className="flex items-center justify-center p-4">
                     <div className="border-2 border-gray-200 w-full rounded-md flex items-center justify-center p-4">
