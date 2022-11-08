@@ -108,13 +108,14 @@ const Event = () => {
                             <H3 className="font-semibold text-gray-700">
                                 Registration
                             </H3>
-                            {event && (
+                            {event && router.query.id && (
                                 <BuyTicketForm
                                     extraQuestions={[
                                         event.question1,
                                         event.question2,
                                     ]}
                                     price={event.price}
+                                    eventId={router.query.id as string}
                                 />
                             )}
                         </div>
@@ -163,7 +164,7 @@ const Event = () => {
                                 </button> */}
                                 {event && event.discord && (
                                     <a
-                                        href={event.discord}
+                                        href={`https://${event.discord}`}
                                         className="outline-none flex"
                                         target="_blank"
                                     >
