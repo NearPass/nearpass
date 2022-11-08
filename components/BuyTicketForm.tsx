@@ -1,5 +1,6 @@
 import { ErrorMessage, Formik } from "formik";
 import { utils } from "near-api-js";
+import useEventContract from "../helpers/useEventContract";
 import useWallet from "../helpers/useWallet";
 import FormInput from "./FormInput";
 import FormInputWrapper from "./FormInputWrapper";
@@ -11,18 +12,22 @@ type FormInputs = {
     email?: string;
     name?: string;
     phone?: string;
-    question1?: string;
-    question2?: string;
+    answer1?: string;
+    answer2?: string;
 };
 
 const BuyTicketForm = ({
     price,
     extraQuestions,
+    eventId,
 }: {
     price: string;
     extraQuestions: string[];
+    eventId: string;
 }) => {
     const [_, walletConnection] = useWallet();
+
+    const { buyTicket } = useEventContract();
 
     return (
         <div className="border-2 bg-brand-50 border-brand-100 p-4 rounded-lg">
@@ -31,8 +36,8 @@ const BuyTicketForm = ({
                     email: "",
                     name: "",
                     phone: "",
-                    question1: "",
-                    question2: "",
+                    answer1: "",
+                    answer2: "",
                 }}
                 validate={(values) => {
                     let errors: FormInputs = {};
@@ -42,16 +47,26 @@ const BuyTicketForm = ({
                     if (!values.email) {
                         errors.email = "Email is required";
                     }
-                    if (!values.question1) {
-                        errors.question1 = "Answer is required";
+                    if (!values.answer1) {
+                        errors.answer1 = "Answer1 is required";
                     }
-                    if (!values.question2) {
-                        errors.question2 = "Answer is required";
+                    if (!values.answer2) {
+                        errors.answer2 = "Answer2 is required";
                     }
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting }) => {
-                    console.log(values);
+                onSubmit={async (values, { setSubmitting }) => {
+                    let { name, email, phone, answer1, answer2 } = values;
+                    setSubmitting(true);
+                    await buyTicket({
+                        eventId,
+                        name,
+                        email,
+                        phone,
+                        answer1,
+                        answer2,
+                        price,
+                    });
                     setSubmitting(false);
                 }}
             >
@@ -132,25 +147,25 @@ const BuyTicketForm = ({
                         </FormInputWrapper>
                         {extraQuestions &&
                             extraQuestions.map((question, index) => (
-                                <FormInputWrapper>
+                                <FormInputWrapper key={index}>
                                     <FormInput
                                         placeholder={question}
-                                        id={`question${index + 1}`}
+                                        id={`answer${index + 1}`}
                                         label={question}
                                         type="text"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={values[`question${index + 1}`]}
+                                        value={values[`answer${index + 1}`]}
                                         error={
-                                            errors[`question${index + 1}`] !==
+                                            errors[`answer${index + 1}`] !==
                                                 undefined &&
-                                            touched[`question${index + 1}`]
+                                            touched[`answer${index + 1}`]
                                         }
                                         errorMessage={
-                                            errors[`question${index + 1}`]
+                                            errors[`answer${index + 1}`]
                                         }
                                         className="bg-purple-500"
-                                        name={`question${index + 1}`}
+                                        name={`answer${index + 1}`}
                                     />
                                 </FormInputWrapper>
                             ))}
