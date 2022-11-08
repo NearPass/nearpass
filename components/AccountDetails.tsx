@@ -37,7 +37,7 @@ const AccountDetails = ({
     return (
         <>
             {accountId && balance ? (
-                <div className="flex flex-col">
+                <div className="flex flex-col pl-2">
                     <H6>{accountId}</H6>
                     <div className="flex space-x-2">
                         <H5 className="text-brand-600 ">
