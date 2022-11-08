@@ -29,7 +29,7 @@ function useEventContract() {
             account as Account,
             EVENTS_CONTRACT as string,
             {
-                changeMethods: ["createEvent"],
+                changeMethods: ["createEvent", "buyTicket"],
                 viewMethods: [],
             }
         );
@@ -57,7 +57,31 @@ function useEventContract() {
         console.log(tx);
     }
 
-    return { contract, createEventOnChain };
+    async function buyTicket({
+        eventId,
+        name,
+        email,
+        phone,
+        answer1,
+        answer2,
+        price,
+    }) {
+        let eventContract = await prepareEventContract();
+        const tx = await eventContract.buyTicket({
+            args: {
+                eventId,
+                name,
+                email,
+                phone,
+                answer1,
+                answer2,
+            },
+            amount: price,
+        });
+        console.log(tx);
+    }
+
+    return { contract, createEventOnChain, buyTicket };
 }
 
 export default useEventContract;
