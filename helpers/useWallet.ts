@@ -1,5 +1,5 @@
 import * as nearAPI from "near-api-js";
-import { Near, WalletConnection } from "near-api-js";
+import { Near, utils, WalletConnection } from "near-api-js";
 import { BrowserLocalStorageKeyStore } from "near-api-js/lib/key_stores";
 import { useEffect, useState } from "react";
 import getConfig from "./config";

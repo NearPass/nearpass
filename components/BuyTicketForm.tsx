@@ -57,8 +57,9 @@ const BuyTicketForm = ({
                 }}
                 onSubmit={async (values, { setSubmitting }) => {
                     let { name, email, phone, answer1, answer2 } = values;
+                    console.log("submit");
                     setSubmitting(true);
-                    await buyTicket({
+                    let tx = await buyTicket({
                         eventId,
                         name,
                         email,
@@ -67,6 +68,7 @@ const BuyTicketForm = ({
                         answer2,
                         price,
                     });
+                    console.log(tx);
                     setSubmitting(false);
                 }}
             >
