@@ -47,13 +47,10 @@ const dateTimeLocalToString = (datetimelocal: string) => {
 
 const CreateEvent = () => {
     const { contract, createEventOnChain } = useEventContract();
-    const [_, walletConnection] = useWallet();
 
     const formik = useFormik({
         initialValues: FORM_INITIAL_VALUES,
         onSubmit: async (values, { setSubmitting }) => {
-            console.log("submit");
-
             let {
                 title,
                 price,
