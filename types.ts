@@ -15,6 +15,7 @@ export interface Event {
     faq: FAQ;
     question1: string;
     question2: string;
+    tickets: Ticket;
 }
 
 export interface FAQ {
@@ -28,4 +29,17 @@ export interface Host {
     name: string;
     address: string;
     email: string;
+}
+
+export interface Ticket {
+    id: string;
+    event: Event;
+    used: Boolean;
+    redeemable: Boolean;
+    answer1: String;
+    answer2: String;
+    name: String;
+    email: String;
+    phone: String;
+    accountId: String;
 }
