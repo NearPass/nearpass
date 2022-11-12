@@ -64,7 +64,7 @@ const Sidebar = () => {
                                 />
                             </a>
                         </Link>
-                        <Link href="/profile/events/CreateEvent">
+                        <Link href="/profile/events">
                             <a>
                                 <SidebarMenuItem
                                     icon={<CalendarCheck />}
@@ -72,7 +72,7 @@ const Sidebar = () => {
                                 />
                             </a>
                         </Link>
-                        <Link href="/profile/events/CreateEvent">
+                        <Link href="/profile/tickets">
                             <a>
                                 <SidebarMenuItem
                                     icon={<Ticket />}
