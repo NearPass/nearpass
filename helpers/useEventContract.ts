@@ -8,7 +8,9 @@ const EVENTS_CONTRACT = process.env.NEXT_PUBLIC_EVENT_CONTRACT_ADDRESS;
 function titleToEventId(title: string) {
     let titleSplit = title.split(" ");
     let titleLower = titleSplit.map((word) => {
-        return `${word[0].toLowerCase()}${word.slice(1, word.length)}`;
+        if (word[0]) {
+            return `${word[0].toLowerCase()}${word.slice(1, word.length)}`;
+        }
     });
     return titleLower.join("-");
 }
