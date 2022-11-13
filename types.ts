@@ -15,7 +15,8 @@ export interface Event {
     faq: FAQ;
     question1: string;
     question2: string;
-    tickets: Ticket;
+    tickets: Ticket[];
+    attendees: string;
 }
 
 export interface FAQ {
@@ -36,10 +37,10 @@ export interface Ticket {
     event: Event;
     used: Boolean;
     redeemable: Boolean;
-    answer1: String;
-    answer2: String;
-    name: String;
-    email: String;
-    phone: String;
-    accountId: String;
+    answer1: string;
+    answer2: string;
+    name: string;
+    email: string;
+    phone: string;
+    accountId: string;
 }
