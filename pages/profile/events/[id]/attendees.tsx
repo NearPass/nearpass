@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Events from "..";
 import { H1, H2, H3, H4, H5, H6 } from "../../../../components/Headings";
 import PrivateRoute from "../../../../components/PrivateRoute";
+import TicketRow from "../../../../components/TicketRow";
 import { concat, timestampToDateTime } from "../../../../helpers/utils";
 import { Event } from "../../../../types";
 
@@ -77,41 +79,12 @@ const Attendees = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className="hover:bg-gray-200">
-                                            <th className="p-4 ">
-                                                <H5 className="text-gray-700">
-                                                    {event.tickets.id
-                                                        .replaceAll('"', "")
-                                                        .replace(event.id, "")}
-                                                </H5>
-                                            </th>
-                                            <th>
-                                                <H5 className="text-gray-700">
-                                                    {event.tickets.name}
-                                                </H5>
-                                            </th>
-                                            <th>
-                                                <H5 className="text-gray-700">
-                                                    {event.tickets.accountId}
-                                                </H5>
-                                            </th>
-                                            <th>
-                                                <H5 className="text-gray-700">
-                                                    {event.tickets.email}
-                                                </H5>
-                                            </th>
-                                            <th>
-                                                {event.tickets.redeemable ? (
-                                                    <H5 className="text-white bg-green-500 inline p-2 rounded-md">
-                                                        Used
-                                                    </H5>
-                                                ) : (
-                                                    <H5 className="text-white bg-red-500 inline p-2 rounded-md">
-                                                        Not Used
-                                                    </H5>
-                                                )}
-                                            </th>
-                                        </tr>
+                                        {event.tickets.map((ticket) => (
+                                            <TicketRow
+                                                key={ticket.id}
+                                                ticket={ticket}
+                                            />
+                                        ))}
                                     </tbody>
                                 </table>
                             )}
