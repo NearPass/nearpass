@@ -1,5 +1,6 @@
 import { ErrorMessage, Formik } from "formik";
 import { utils } from "near-api-js";
+import toast from "react-hot-toast";
 import useEventContract from "../helpers/useEventContract";
 import useWallet from "../helpers/useWallet";
 import FormInput from "./FormInput";
@@ -57,9 +58,8 @@ const BuyTicketForm = ({
                 }}
                 onSubmit={async (values, { setSubmitting }) => {
                     let { name, email, phone, answer1, answer2 } = values;
-                    console.log("submit");
                     setSubmitting(true);
-                    let tx = await buyTicket({
+                    let tx = buyTicket({
                         eventId,
                         name,
                         email,
@@ -67,6 +67,10 @@ const BuyTicketForm = ({
                         answer1,
                         answer2,
                         price,
+                    });
+                    toast.promise(tx, {
+                        loading: "Buying Ticket",
+                        success: "Ticket Bought!",
                     });
                     console.log(tx);
                     setSubmitting(false);
@@ -148,29 +152,37 @@ const BuyTicketForm = ({
                             />
                         </FormInputWrapper>
                         {extraQuestions &&
-                            extraQuestions.map((question, index) => (
-                                <FormInputWrapper key={index}>
-                                    <FormInput
-                                        placeholder={question}
-                                        id={`answer${index + 1}`}
-                                        label={question}
-                                        type="text"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values[`answer${index + 1}`]}
-                                        error={
-                                            errors[`answer${index + 1}`] !==
-                                                undefined &&
-                                            touched[`answer${index + 1}`]
-                                        }
-                                        errorMessage={
-                                            errors[`answer${index + 1}`]
-                                        }
-                                        className="bg-purple-500"
-                                        name={`answer${index + 1}`}
-                                    />
-                                </FormInputWrapper>
-                            ))}
+                            extraQuestions.map(
+                                (question, index) =>
+                                    question && (
+                                        <FormInputWrapper key={index}>
+                                            <FormInput
+                                                placeholder={question}
+                                                id={`answer${index + 1}`}
+                                                label={question}
+                                                type="text"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={
+                                                    values[`answer${index + 1}`]
+                                                }
+                                                error={
+                                                    errors[
+                                                        `answer${index + 1}`
+                                                    ] !== undefined &&
+                                                    touched[
+                                                        `answer${index + 1}`
+                                                    ]
+                                                }
+                                                errorMessage={
+                                                    errors[`answer${index + 1}`]
+                                                }
+                                                className="bg-purple-500"
+                                                name={`answer${index + 1}`}
+                                            />
+                                        </FormInputWrapper>
+                                    )
+                            )}
                         <div className="flex items-end space-x-[2px]">
                             <span className="text-black">Price:</span>
                             <H4 className="text-brand-600 font-semibold text-xl leading-tight">

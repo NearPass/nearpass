@@ -4,12 +4,14 @@ import { Disclosure } from "@headlessui/react";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import React from "react";
+import toast from "react-hot-toast";
 import CreateEventForm from "../../../components/CreateEventForm";
 import FormInput from "../../../components/FormInput";
 import FormInputWrapper from "../../../components/FormInputWrapper";
 import { H1, H3, H4, H5, H6 } from "../../../components/Headings";
 import Calendar from "../../../components/Icons/Calendar";
 import ChevronDown from "../../../components/Icons/ChevronDown";
+import ExternalLinkAlt from "../../../components/Icons/ExternalLinkAlt";
 import Mail from "../../../components/Icons/Mail";
 import MarkerPin from "../../../components/Icons/MarkerPin";
 import MessageChatCircle from "../../../components/Icons/MessageChatCircle";
@@ -86,12 +88,12 @@ const CreateEvent = () => {
                 question2,
             };
 
-            let result = await fileFromPath(
+            let result = fileFromPath(
                 title,
                 thumbnail,
                 eventMetadata,
-                (result: any) =>
-                    createEventOnChain({
+                (result: any) => {
+                    let tx = createEventOnChain({
                         title,
                         hostName: hostname,
                         price,
@@ -100,7 +102,25 @@ const CreateEvent = () => {
                             ...eventMetadata,
                             thumbnail: result.url,
                         },
-                    })
+                    });
+
+                    toast.promise(tx, {
+                        loading: "Creating Event",
+                        success: (data) => {
+                            return (
+                                <a
+                                    href={`https://explorer.testnet.near.org/transactions/${data?.transaction.hash}`}
+                                    target="_blank"
+                                    className="text-brand-500 flex items-center space-x-2"
+                                >
+                                    Sucessfully created
+                                    <ExternalLinkAlt />
+                                </a>
+                            );
+                        },
+                        error: (err) => `Event Might already be created!`,
+                    });
+                }
             );
         },
         validate: (values) => {
