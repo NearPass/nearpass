@@ -11,7 +11,6 @@ import { concat } from "../../helpers/utils";
 const Tickets = () => {
     const [_, walletConnection] = useWallet();
     const [tickets, setTickets] = useState<Ticket[]>();
-
     useEffect(() => {
         (async () => {
             if (walletConnection) {
@@ -42,7 +41,6 @@ const Tickets = () => {
                     }
                 );
                 setTickets(res.data.data.tickets);
-                console.log(res.data.data.tickets);
             }
         })();
     }, [walletConnection]);
@@ -64,7 +62,10 @@ const Tickets = () => {
                         <div className="grid gap-2 grid-cols-4">
                             {tickets &&
                                 tickets.map((ticket) => (
-                                    <TicketComp ticket={ticket} />
+                                    <TicketComp
+                                        key={ticket.id}
+                                        ticket={ticket}
+                                    />
                                 ))}
                         </div>
                     </React.Fragment>
