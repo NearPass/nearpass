@@ -5,7 +5,7 @@ import axios from "axios";
 import { H5, H6 } from "../Headings";
 
 const EventCard = ({ event }: { event: Event }) => {
-    const { title, thumbnail, host, timestamp } = event;
+    const { title, thumbnail, host, timestamp, attendees } = event;
 
     const [imageB64, setImageB64] = useState<string>();
 
@@ -36,9 +36,11 @@ const EventCard = ({ event }: { event: Event }) => {
     return (
         <div className="w-full hover:bg-slate-50 hover:shadow-inner p-3 rounded-md flex flex-col space-y-2">
             <div className="flex relative items-center justify-center rounded-md overflow-hidden">
-                {/* <span className="absolute top-2 left-2 bg-brand-500 px-[6px] py-[3px] text-xs rounded-md">
-                    {`${attendees} Attendees`}
-                </span> */}
+                {parseInt(attendees) && (
+                    <span className="absolute top-2 left-2 bg-brand-500 px-[6px] py-[3px] text-xs rounded-md">
+                        {`${attendees} Attendees`}
+                    </span>
+                )}
                 {thumbnail && <img src={imageB64} />}
             </div>
             <div className="flex flex-col space-y-1">
