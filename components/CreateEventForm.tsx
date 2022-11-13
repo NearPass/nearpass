@@ -1,17 +1,9 @@
-import {
-    ErrorMessage,
-    Field,
-    Formik,
-    FormikConfig,
-    FormikHandlers,
-    FormikProps,
-} from "formik";
+import { FormikProps } from "formik";
 import useWallet from "../helpers/useWallet";
 import FormInput from "./FormInput";
 import FormInputWrapper from "./FormInputWrapper";
 import { H4, H5, H6 } from "./Headings";
 import clsx from "clsx";
-import Radio from "./Radio";
 import Telegram from "./Icons/Telegram";
 import MessageChatCircle from "./Icons/MessageChatCircle";
 
