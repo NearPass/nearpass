@@ -20,6 +20,7 @@ const GET_EVENTS = `{
         discord
         venue
         timestamp
+        attendees
         host { 
             name
             address
