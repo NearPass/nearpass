@@ -30,6 +30,7 @@ const Event = () => {
             thumbnail
             timestamp
             price
+            venue
             host {
                 name
                 address
