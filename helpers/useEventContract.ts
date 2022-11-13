@@ -47,46 +47,46 @@ function useEventContract() {
         }
     }
 
-    async function checkIfKeyInKeyStore() {
-        if (walletConnection && keyStore) {
-            let accessKeys = await getAccountAccessKeys();
+    // async function checkIfKeyInKeyStore() {
+    //     if (walletConnection && keyStore) {
+    //         let accessKeys = await getAccountAccessKeys();
 
-            if (accessKeys && accessKeys.length > 0) {
-                for (let i = 0; i < accessKeys.length; i++) {
-                    let key = await keyStore.getAccounts(
-                        accessKeys[i].public_key.split(":")[1]
-                    );
-                    if (key.length > 0) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
+    //         if (accessKeys && accessKeys.length > 0) {
+    //             for (let i = 0; i < accessKeys.length; i++) {
+    //                 let key = await keyStore.getAccounts(
+    //                     accessKeys[i].public_key.split(":")[1]
+    //                 );
+    //                 if (key.length > 0) {
+    //                     return true;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 
-    async function addKeyToKeyStore() {
-        if (keyStore && walletConnection) {
-            const keyPair = KeyPair.fromRandom("ed25519");
-            const publicKey = keyPair.getPublicKey().toString();
-            console.log(publicKey);
-            await keyStore.setKey("testnet", publicKey, keyPair);
-            let account = await walletConnection.account();
-            await account.addKey(
-                publicKey, // public key for new account
-                EVENTS_CONTRACT, // contract this key is allowed to call (optional)
-                [
-                    "createEvent",
-                    "buyTicket",
-                    "cancelEvent",
-                    "withdraw",
-                    "claimRefund",
-                    "redeem",
-                ], // methods this key is allowed to call (optional)
-                utils.format.parseNearAmount("10") // allowance key can use to call methods (optional)
-            );
-        }
-    }
+    // async function addKeyToKeyStore() {
+    //     if (keyStore && walletConnection) {
+    //         const keyPair = KeyPair.fromRandom("ed25519");
+    //         const publicKey = keyPair.getPublicKey().toString();
+    //         console.log(publicKey);
+    //         await keyStore.setKey("testnet", publicKey, keyPair);
+    //         let account = await walletConnection.account();
+    //         await account.addKey(
+    //             publicKey, // public key for new account
+    //             EVENTS_CONTRACT, // contract this key is allowed to call (optional)
+    //             [
+    //                 "createEvent",
+    //                 "buyTicket",
+    //                 "cancelEvent",
+    //                 "withdraw",
+    //                 "claimRefund",
+    //                 "redeem",
+    //             ], // methods this key is allowed to call (optional)
+    //             utils.format.parseNearAmount("10") // allowance key can use to call methods (optional)
+    //         );
+    //     }
+    // }
 
     async function prepareEventContract() {
         let account = await near?.account(
@@ -111,14 +111,21 @@ function useEventContract() {
         eventMetadata,
     }) {
         if (contract) {
-            const tx = await contract.createEvent({
-                eventId: titleToEventId(title),
-                title,
-                eventMetadata,
-                eventStart: timestamp * 1000000,
-                hostName,
-                price: utils.format.parseNearAmount(price.toString()),
+            const tx = await walletConnection?.account().functionCall({
+                contractId: EVENTS_CONTRACT,
+                methodName: "createEvent",
+                args: {
+                    eventId: titleToEventId(title),
+                    title,
+                    eventMetadata,
+                    eventStart: timestamp * 1000000,
+                    hostName,
+                    price: utils.format.parseNearAmount(price.toString()),
+                },
+                walletCallbackUrl: "http://localhost:3000/profile/events",
             });
+
+            return tx;
         }
     }
 
@@ -139,6 +146,7 @@ function useEventContract() {
                 args: { eventId, name, email, phone, answer1, answer2 },
                 gas: BigInt(300_000_000_000_000).toString(),
                 attachedDeposit: price,
+                walletCallbackUrl: "http://localhost:3000/profile/tickets",
             });
             return tx;
         }
