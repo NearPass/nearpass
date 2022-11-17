@@ -37,6 +37,7 @@ const Attendees = () => {
                             email
                             phone
                             accountId
+                            used
                         }
                     }
                 }
