@@ -122,7 +122,7 @@ function useEventContract() {
                     hostName,
                     price: utils.format.parseNearAmount(price.toString()),
                 },
-                walletCallbackUrl: "http://localhost:3000/profile/events",
+                walletCallbackUrl: `${window.location.origin}/profile/events`,
             });
 
             return tx;
@@ -146,7 +146,7 @@ function useEventContract() {
                 args: { eventId, name, email, phone, answer1, answer2 },
                 gas: BigInt(300_000_000_000_000).toString(),
                 attachedDeposit: price,
-                walletCallbackUrl: "http://localhost:3000/profile/tickets",
+                walletCallbackUrl: `${window.location.origin}/profile/tickets`,
             });
             return tx;
         }

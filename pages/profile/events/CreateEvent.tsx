@@ -93,6 +93,8 @@ const CreateEvent = () => {
                 thumbnail,
                 eventMetadata,
                 (result: any) => {
+                    let res = await axios.get(result.url);
+
                     let tx = createEventOnChain({
                         title,
                         hostName: hostname,
@@ -100,7 +102,7 @@ const CreateEvent = () => {
                         timestamp: new Date(datetime).getTime(),
                         eventMetadata: {
                             ...eventMetadata,
-                            thumbnail: result.url,
+                            thumbnail: res.data.image,
                         },
                     });
 
