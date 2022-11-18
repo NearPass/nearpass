@@ -51,7 +51,11 @@ const Sidebar = () => {
                         </a>
                     </Link>
                 </div>
-                <ul className="flex flex-col space-y-2 p-3 text-emerald-700"></ul>
+                <div className="p-2 bg-brand-100 m-5 rounded-md text-center ">
+                    <H5 className="text-brand-600">
+                        NFT Ticketing platform on NEAR Blockchain
+                    </H5>
+                </div>
             </div>
             <div className="flex flex-col">
                 {accountId && (
