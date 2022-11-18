@@ -48,6 +48,7 @@ const AccountDetails = ({
                         <a
                             href={`https://explorer.testnet.near.org/accounts/${accountId}`}
                             target="_blank"
+                            rel="noreferrer"
                         >
                             <ExternalLinkAlt className="h-3 w-3" />
                         </a>

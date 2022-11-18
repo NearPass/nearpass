@@ -112,6 +112,7 @@ const CreateEvent = () => {
                                     href={`https://explorer.testnet.near.org/transactions/${data?.transaction.hash}`}
                                     target="_blank"
                                     className="text-brand-500 flex items-center space-x-2"
+                                    rel="noreferrer"
                                 >
                                     Sucessfully created
                                     <ExternalLinkAlt />

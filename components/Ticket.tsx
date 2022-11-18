@@ -44,6 +44,7 @@ const Ticket = ({ ticket }: { ticket: Ticket }) => {
                     <a
                         href={`https://explorer.testnet.near.org/accounts/${event.host.address}`}
                         target="_blank"
+                        rel="noreferrer"
                     >
                         <span className="text-brand-500 ml-1 font-semibold">
                             {event.host.name}

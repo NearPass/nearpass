@@ -15,6 +15,7 @@ const LocationSection = ({ venue }: { venue: string }) => {
                     <a
                         href={`https://www.google.com/maps/search/${venue}/@20.7710884,73.7280409`}
                         target="_blank"
+                        rel="noreferrer"
                     >
                         Show on Map
                     </a>

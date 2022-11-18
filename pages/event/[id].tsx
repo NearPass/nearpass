@@ -168,6 +168,7 @@ const Event = () => {
                                         href={`https://${event.discord}`}
                                         className="outline-none flex"
                                         target="_blank"
+                                        rel="noreferrer"
                                     >
                                         <button className="bg-[#7289da] flex space-x-2 text-lg border-2 focus:ring-2 focus:ring-[#7289da] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full h-full rounded-md active:ring-2 active:ring-[#7289da]">
                                             <MessageChatCircle className="!stroke-white" />
@@ -183,6 +184,7 @@ const Event = () => {
                                         href={`https://${event.telegram}`}
                                         className="outline-none flex"
                                         target="_blank"
+                                        rel="noreferrer"
                                     >
                                         <button className="bg-[#229ED9] flex space-x-2 text-lg border-2 focus:ring-2 focus:ring-[#229ED9] outline-none ring-offset-2 border-transparent shadow-md px-5 py-2 w-full rounded-md active:ring-2 active:ring-[#229ED9]">
                                             <Telegram className="!stroke-white" />
