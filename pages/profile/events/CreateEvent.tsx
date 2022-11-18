@@ -92,7 +92,7 @@ const CreateEvent = () => {
                 title,
                 thumbnail,
                 eventMetadata,
-                (result: any) => {
+                async (result: any) => {
                     let res = await axios.get(result.url);
 
                     let tx = createEventOnChain({
