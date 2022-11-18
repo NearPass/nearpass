@@ -25,8 +25,8 @@ const AccountDetails = ({
             if (walletConnection) {
                 walletConnection.requestSignIn({
                     contractId: EVENTS_CONTRACT,
-                    successUrl: "http://localhost:3000",
-                    failureUrl: "localhost:3000",
+                    successUrl: window.location.href,
+                    failureUrl: window.location.href,
                 });
             } else {
                 console.log(`Not yet init` + walletConnection);
