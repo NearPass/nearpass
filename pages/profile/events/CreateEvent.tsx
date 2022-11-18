@@ -94,12 +94,6 @@ const CreateEvent = () => {
                 thumbnail,
                 eventMetadata,
                 async (result: any) => {
-                    let res = await axios.get(
-                        `https://ipfs.io/ipfs/${result.url.replace(
-                            "ipfs://",
-                            ""
-                        )}`
-                    );
                     let tx = createEventOnChain({
                         title,
                         hostName: hostname,
@@ -107,7 +101,7 @@ const CreateEvent = () => {
                         timestamp: new Date(datetime).getTime(),
                         eventMetadata: {
                             ...eventMetadata,
-                            thumbnail: res.data.image,
+                            thumbnail: result.data.image.href,
                         },
                     });
 
