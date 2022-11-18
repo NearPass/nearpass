@@ -112,7 +112,7 @@ function useEventContract() {
     }) {
         if (contract) {
             const tx = await walletConnection?.account().functionCall({
-                contractId: EVENTS_CONTRACT,
+                contractId: EVENTS_CONTRACT as string,
                 methodName: "createEvent",
                 args: {
                     eventId: titleToEventId(title),
@@ -141,7 +141,7 @@ function useEventContract() {
         if (contract) {
             console.log({ eventId, name, email, price });
             let tx = await walletConnection?.account().functionCall({
-                contractId: EVENTS_CONTRACT,
+                contractId: EVENTS_CONTRACT as string,
                 methodName: "buyTicket",
                 args: { eventId, name, email, phone, answer1, answer2 },
                 gas: BigInt(300_000_000_000_000).toString(),

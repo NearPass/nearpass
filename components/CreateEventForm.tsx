@@ -74,12 +74,14 @@ const CreateEventForm = ({
                                 value={formik.values.thumbnail}
                                 onChange={(e) => {
                                     if (e.target !== null) {
-                                        formik.setFieldValue(
-                                            "thumbnail",
-                                            URL.createObjectURL(
-                                                e.target.files[0]
-                                            )
-                                        );
+                                        if (e.target.files) {
+                                            formik.setFieldValue(
+                                                "thumbnail",
+                                                URL.createObjectURL(
+                                                    e.target.files[0]
+                                                )
+                                            );
+                                        }
                                     }
                                 }}
                                 onBlur={formik.handleBlur}

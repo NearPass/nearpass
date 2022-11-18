@@ -66,7 +66,7 @@ export const H5 = ({
     children,
     className,
 }: {
-    children: string;
+    children: any;
     className?: string;
 }) => {
     return (

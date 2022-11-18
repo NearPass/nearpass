@@ -71,6 +71,7 @@ const BuyTicketForm = ({
                     toast.promise(tx, {
                         loading: "Buying Ticket",
                         success: "Ticket Bought!",
+                        error: null,
                     });
                     console.log(tx);
                     setSubmitting(false);
