@@ -100,7 +100,6 @@ const CreateEvent = () => {
                             ""
                         )}`
                     );
-
                     let tx = createEventOnChain({
                         title,
                         hostName: hostname,
