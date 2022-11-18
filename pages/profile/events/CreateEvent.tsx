@@ -1,6 +1,7 @@
 // Dedicated page for every event containing information like description, venue, date, time and sign up form.
 //@ts-nocheck
 import { Disclosure } from "@headlessui/react";
+import axios from "axios";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import React from "react";
@@ -93,7 +94,12 @@ const CreateEvent = () => {
                 thumbnail,
                 eventMetadata,
                 async (result: any) => {
-                    let res = await axios.get(result.url);
+                    let res = await axios.get(
+                        `https://ipfs.io/ipfs/${result.url.replace(
+                            "ipfs://",
+                            ""
+                        )}`
+                    );
 
                     let tx = createEventOnChain({
                         title,
