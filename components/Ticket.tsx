@@ -12,18 +12,18 @@ const Ticket = ({ ticket }: { ticket: Ticket }) => {
     useEffect(() => {
         if (ticket) {
             (async () => {
-                const metadata = await axios.get(
+                const image = await axios.get(
                     `https://ipfs.io/ipfs/${ticket.event.thumbnail.replace(
                         "ipfs://",
                         ""
                     )}`
                 );
-                const image = await axios.get(
-                    `https://ipfs.io/ipfs/${metadata.data.image.replace(
-                        "ipfs://",
-                        ""
-                    )}`
-                );
+                // const image = await axios.get(
+                //     `https://ipfs.io/ipfs/${metadata.data.image.replace(
+                //         "ipfs://",
+                //         ""
+                //     )}`
+                // );
                 setImage(image.data);
             })();
         }
