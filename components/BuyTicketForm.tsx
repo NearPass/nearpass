@@ -48,12 +48,12 @@ const BuyTicketForm = ({
                     if (!values.email) {
                         errors.email = "Email is required";
                     }
-                    if (!values.answer1) {
-                        errors.answer1 = "Answer1 is required";
-                    }
-                    if (!values.answer2) {
-                        errors.answer2 = "Answer2 is required";
-                    }
+                    // if (!values.answer1) {
+                    //     errors.answer1 = "Answer1 is required";
+                    // }
+                    // if (!values.answer2) {
+                    //     errors.answer2 = "Answer2 is required";
+                    // }
                     return errors;
                 }}
                 onSubmit={async (values, { setSubmitting }) => {
