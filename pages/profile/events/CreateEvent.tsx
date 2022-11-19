@@ -94,6 +94,15 @@ const CreateEvent = () => {
                 thumbnail,
                 eventMetadata,
                 async (result: any) => {
+                    let thumbnailUrl = `https://${
+                        result.data.image.href
+                            .replace("ipfs://", "")
+                            .split("/")[0]
+                    }.ipfs.dweb.link/${
+                        result.data.image.href
+                            .replace("ipfs://", "")
+                            .split("/")[1]
+                    }`;
                     let tx = createEventOnChain({
                         title,
                         hostName: hostname,
@@ -101,7 +110,7 @@ const CreateEvent = () => {
                         timestamp: new Date(datetime).getTime(),
                         eventMetadata: {
                             ...eventMetadata,
-                            thumbnail: result.data.image.href,
+                            thumbnail: thumbnailUrl,
                         },
                     });
 
