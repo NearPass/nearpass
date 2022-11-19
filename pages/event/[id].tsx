@@ -68,12 +68,7 @@ const Event = () => {
         if (event && event.thumbnail) {
             (async () => {
                 try {
-                    let image = await axios.get(
-                        `https://ipfs.io/ipfs/${event.thumbnail.replace(
-                            "ipfs://",
-                            ""
-                        )}`
-                    );
+                    let image = await axios.get(event.thumbnail);
                     // let image = await axios.get(
                     //     `https://ipfs.io/ipfs/${res.data.image.replace(
                     //         "ipfs://",

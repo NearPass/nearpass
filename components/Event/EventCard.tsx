@@ -13,12 +13,7 @@ const EventCard = ({ event }: { event: Event }) => {
         if (thumbnail) {
             (async () => {
                 try {
-                    let image = await axios.get(
-                        `https://ipfs.io/ipfs/${thumbnail.replace(
-                            "ipfs://",
-                            ""
-                        )}`
-                    );
+                    let image = await axios.get(thumbnail);
                     // let image = await axios.get(
                     //     `https://ipfs.io/ipfs/${res.data.image.replace(
                     //         "ipfs://",
